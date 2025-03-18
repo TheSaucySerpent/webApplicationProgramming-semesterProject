@@ -1,38 +1,43 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #2B2B2B;
+  font-family: 'Georgia', serif;
+}
+
 .App {
+  background-color: #3C3C3C;
   text-align: center;
+  padding: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  font-size: 36pt;
+  color: #D3B88C;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.reviews {
   display: flex;
   flex-direction: column;
+  gap: 20px;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.review {
+  background-color: #4A4A4A;
+  width: 90%;
+  text-align: left;
+  border: 1px solid #8B5E3C;
+  padding: 15px;
+  border-radius: 8px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.review h2 {
+  font-size: 24pt;
+  color: #F3D3B7;
+}
+
+.review p {
+  color: #CCCCCC;
+  font-size: 16pt;
 }
