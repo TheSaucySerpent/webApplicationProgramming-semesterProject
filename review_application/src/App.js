@@ -134,7 +134,7 @@ function Menu(props) {
 function App() {
   return (
     <div className="App">
-      <Menu title="Book Reviews" reviews={data} />
+      <Menu title="My Book Reviews" reviews={data} />
     </div>
   );
 }
