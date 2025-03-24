@@ -41,3 +41,9 @@ h1 {
   color: #CCCCCC;
   font-size: 16pt;
 }
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

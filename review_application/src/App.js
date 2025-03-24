@@ -107,15 +107,20 @@ function Review(props) {
   }
 
   return <div className="review">
-    <h2>{props.title} - {props.author}</h2>
+    <div className="review-header">
+      <h2>{props.title} - {props.author}</h2>
+      <div className="button-container">
+        <button id='delete-button' onClick={() => {
+          props.setReviews(props.reviews.filter((r) => r.isbn !== props.isbn))
+        }}>Delete Review
+        </button>
+      </div>
+    </div>
+
     <p>ISBN: {props.isbn}</p>
     <p>Ranking: {getReviewStars(props.ranking)}</p>
     <p>Release Year: {props.release_year}</p>
     <p>Review: {props.review}</p>
-
-    <button id='delete' onClick={() => {
-      props.setReviews(props.reviews.filter((r) => r.isbn !== props.isbn))
-    }}>Delete Review</button>
   </div>
 }
 
