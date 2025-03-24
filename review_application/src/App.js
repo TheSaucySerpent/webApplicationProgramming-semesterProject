@@ -111,7 +111,7 @@ function Review(props) {
       <h2>{props.title} - {props.author}</h2>
       <div className="button-container">
         <button id='delete-button' onClick={() => {
-          props.setReviews(props.reviews.filter((r) => r.isbn !== props.isbn))
+          props.onDelete(props.isbn); // delete the review with matching isbn
         }}>Delete Review
         </button>
       </div>
@@ -127,6 +127,10 @@ function Review(props) {
 function Menu(props) {
   const [reviews, setReviews] = React.useState(initialData);
 
+  function handleDelete(isbn) {
+    setReviews(reviews.filter((r) => r.isbn !== isbn));
+  }  
+
   return <section>
     <h1>{props.title}</h1>
     <div className="reviews"> {reviews.map((review) => (
@@ -137,8 +141,7 @@ function Menu(props) {
         release_year={review.release_year}
         ranking={review.ranking}
         review={review.review}
-        reviews={reviews}
-        setReviews={setReviews}
+        onDelete={handleDelete}
       />
     ))}
     </div>
