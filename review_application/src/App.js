@@ -1,6 +1,7 @@
 import './App.css';
+import React from 'react';
 
-const data = [{
+const initialData = [{
   "isbn": 9780307887443,
   "title": "Ready Player One: A Novel",
   "author": "Ernest Cline",
@@ -111,13 +112,19 @@ function Review(props) {
     <p>Ranking: {getReviewStars(props.ranking)}</p>
     <p>Release Year: {props.release_year}</p>
     <p>Review: {props.review}</p>
+
+    <button id='delete' onClick={() => {
+      props.setReviews(props.reviews.filter((r) => r.isbn !== props.isbn))
+    }}>Delete Review</button>
   </div>
 }
 
 function Menu(props) {
+  const [reviews, setReviews] = React.useState(initialData);
+
   return <section>
     <h1>{props.title}</h1>
-    <div className="reviews"> {props.reviews.map((review) => (
+    <div className="reviews"> {reviews.map((review) => (
       <Review key={review.isbn}
         isbn={review.isbn}
         title = {review.title}
@@ -125,6 +132,8 @@ function Menu(props) {
         release_year={review.release_year}
         ranking={review.ranking}
         review={review.review}
+        reviews={reviews}
+        setReviews={setReviews}
       />
     ))}
     </div>
@@ -134,7 +143,7 @@ function Menu(props) {
 function App() {
   return (
     <div className="App">
-      <Menu title="My Book Reviews" reviews={data} />
+      <Menu title="My Book Reviews" reviews={initialData} />
     </div>
   );
 }
