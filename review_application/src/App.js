@@ -124,15 +124,123 @@ function Review(props) {
   </div>
 }
 
+function ReviewForm(props) {
+  const [form, setForm] = React.useState({
+    isbn: "",
+    title: "",
+    author: "",
+    release_year: "",
+    ranking: "",
+    review: ""
+  });
+
+  function handleChange(event) {
+    setForm({ ...form, [event.target.name]: event.target.value });
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault(); // prevent default form submission behavior
+    props.onSubmit(form);
+    setForm({ // reset the form fields after submission
+      isbn: "",
+      title: "",
+      author: "",
+      release_year: "",
+      ranking: "",
+      review: ""
+    });
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        ISBN:
+        <input
+          type="text"
+          name="isbn"
+          value={form.isbn}
+          onChange={handleChange}
+          required
+        />
+      </label>
+      <label>
+        Title:
+        <input
+          type="text"
+          name="title"
+          value={form.title}
+          onChange={handleChange}
+          required
+        />
+      </label>
+      <label>
+        Author:
+        <input
+          type="text"
+          name="author"
+          value={form.author}
+          onChange={handleChange}
+          required
+        />
+      </label>
+      <label>
+        Release Year:
+        <input
+          type="number"
+          name="release_year"
+          value={form.release_year}
+          onChange={handleChange}
+          required
+        />
+      </label>
+      <label>
+        Ranking (0-5):
+        <input
+          type="number"
+          name="ranking"
+          value={form.ranking}
+          onChange={handleChange}
+          min="0"
+          max="5"
+          step="0.5"
+          required
+        />
+      </label>
+      <label>
+        Review:
+        <textarea
+          name="review"
+          value={form.review}
+          onChange={handleChange}
+          required
+        />
+      </label>
+      <button type="submit">Submit Review</button>
+    </form>
+  );
+}
+
 function Menu(props) {
   const [reviews, setReviews] = React.useState(initialData);
+  const [showForm,  setShowForm] = React.useState(false);
 
   function handleDelete(isbn) {
     setReviews(reviews.filter((r) => r.isbn !== isbn));
-  }  
+  }
+  
+  function handleFormSubmit(form) {
+    setReviews([...reviews, form]);
+    setShowForm(false);
+  }
 
   return <section>
     <h1>{props.title}</h1>
+
+    <button id='new-book-button' onClick={() => setShowForm(!showForm)}>
+      {showForm ? "Hide Form" : "Add New Book Review"}
+    </button>
+    {showForm ? <ReviewForm onSubmit={handleFormSubmit} /> : null}
+
     <div className="reviews"> {reviews.map((review) => (
       <Review key={review.isbn}
         isbn={review.isbn}
