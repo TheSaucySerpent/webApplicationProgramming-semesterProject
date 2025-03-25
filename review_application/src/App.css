@@ -47,3 +47,27 @@ h1 {
   justify-content: space-between;
   align-items: center;
 }
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.review-form label {
+  color: #D3B88C;
+  font-weight: bold;
+}
+
+.review-form input,
+.review-form textarea {
+  width: 150px;
+  padding: 5px;
+  margin-top: 5px;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+}

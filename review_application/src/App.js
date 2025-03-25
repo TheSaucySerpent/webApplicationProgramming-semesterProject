@@ -110,10 +110,8 @@ function Review(props) {
     <div className="review-header">
       <h2>{props.title} - {props.author}</h2>
       <div className="button-container">
-        <button id='delete-button' onClick={() => {
-          props.onDelete(props.isbn); // delete the review with matching isbn
-        }}>Delete Review
-        </button>
+        <button id='edit-button' onClick={() => props.onEdit(props)}>Edit</button>
+        <button id='delete-button' onClick={() => props.onDelete(props.isbn)}>Delete</button>
       </div>
     </div>
 
@@ -134,6 +132,13 @@ function ReviewForm(props) {
     review: ""
   });
 
+  // needed to use this to prevent infinite re-renders when editing a review
+  React.useEffect(() => {
+    if(props.editingReview) {
+      setForm(props.editingReview);
+    }
+  }, [props.editingReview]);
+
   function handleChange(event) {
     setForm({ ...form, [event.target.name]: event.target.value });
   }
@@ -152,84 +157,58 @@ function ReviewForm(props) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        ISBN:
-        <input
-          type="text"
-          name="isbn"
-          value={form.isbn}
-          onChange={handleChange}
-          required
-        />
-      </label>
-      <label>
-        Title:
-        <input
-          type="text"
-          name="title"
-          value={form.title}
-          onChange={handleChange}
-          required
-        />
-      </label>
-      <label>
-        Author:
-        <input
-          type="text"
-          name="author"
-          value={form.author}
-          onChange={handleChange}
-          required
-        />
-      </label>
-      <label>
-        Release Year:
-        <input
-          type="number"
-          name="release_year"
-          value={form.release_year}
-          onChange={handleChange}
-          required
-        />
-      </label>
-      <label>
-        Ranking (0-5):
-        <input
-          type="number"
-          name="ranking"
-          value={form.ranking}
-          onChange={handleChange}
-          min="0"
-          max="5"
-          step="0.5"
-          required
-        />
-      </label>
-      <label>
-        Review:
-        <textarea
-          name="review"
-          value={form.review}
-          onChange={handleChange}
-          required
-        />
-      </label>
+    <form onSubmit={handleSubmit} className="review-form">
+      <div>
+        <label>ISBN:</label>
+        <input type="text" name="isbn" value={form.isbn} onChange={handleChange} required />
+      </div>
+      <div>
+        <label>Title:</label>
+        <input type="text" name="title" value={form.title} onChange={handleChange} required />
+      </div>
+      <div>
+        <label>Author:</label>
+        <input type="text" name="author" value={form.author} onChange={handleChange} required />
+      </div>
+      <div>
+        <label>Release Year:</label>
+        <input type="number" name="release_year" value={form.release_year} onChange={handleChange} required />
+      </div>
+      <div>
+        <label>Ranking (0-5):</label>
+        <input type="number" name="ranking" value={form.ranking} onChange={handleChange} min="0" max="5" step="0.5" required />
+      </div>
+      <div>
+        <label>Review:</label>
+        <textarea name="review" value={form.review} onChange={handleChange} required />
+      </div>
       <button type="submit">Submit Review</button>
     </form>
-  );
+  );  
 }
 
 function Menu(props) {
   const [reviews, setReviews] = React.useState(initialData);
   const [showForm,  setShowForm] = React.useState(false);
+  const [editingReview, setEditingReview] = React.useState(null);
+
+  function handleEdit(review) {
+    setEditingReview(review);
+    setShowForm(true);
+  }
 
   function handleDelete(isbn) {
     setReviews(reviews.filter((r) => r.isbn !== isbn));
   }
   
   function handleFormSubmit(form) {
-    setReviews([...reviews, form]);
+    if (editingReview) {
+      setReviews(reviews.map((r) => r.isbn === editingReview.isbn ? form : r))
+      setEditingReview(null);
+    }
+    else {
+      setReviews([...reviews, form]);
+    }
     setShowForm(false);
   }
 
@@ -239,7 +218,7 @@ function Menu(props) {
     <button id='new-book-button' onClick={() => setShowForm(!showForm)}>
       {showForm ? "Hide Form" : "Add New Book Review"}
     </button>
-    {showForm ? <ReviewForm onSubmit={handleFormSubmit} /> : null}
+    {showForm ? <ReviewForm onSubmit={handleFormSubmit} editingReview={editingReview} /> : null}
 
     <div className="reviews"> {reviews.map((review) => (
       <Review key={review.isbn}
@@ -249,6 +228,7 @@ function Menu(props) {
         release_year={review.release_year}
         ranking={review.ranking}
         review={review.review}
+        onEdit={handleEdit}
         onDelete={handleDelete}
       />
     ))}
