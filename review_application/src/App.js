@@ -103,7 +103,7 @@ function Review(props) {
   const getReviewStars = (rating) => {
     const fullStars = Math.floor(rating); // round down to nearest whole number
     const halfStars = rating % 1 !== 0;   // check for remainder (if so, need 1/2) 
-    return "★".repeat(fullStars) + (halfStars ? "½" : "");
+    return "⭐".repeat(fullStars) + (halfStars ? "½" : "");
   }
 
   return <div className="review">
