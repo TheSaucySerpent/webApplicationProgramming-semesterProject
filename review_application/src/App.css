@@ -6,14 +6,14 @@ body {
 }
 
 .App {
-  background-color: #3C3C3C;
+  background-color: #2A664D;
   text-align: center;
   padding: 20px;
 }
 
 h1 {
   font-size: 36pt;
-  color: #D3B88C;
+  color: #D5C7AC;
 }
 
 .reviews {
@@ -24,12 +24,12 @@ h1 {
 }
 
 .review {
-  background-color: #4A4A4A;
+  background-color: #58402F;
   width: 90%;
   text-align: left;
   border: 1px solid #8B5E3C;
   padding: 15px;
-  border-radius: 8px;
+  border-radius: 25px;
 }
 
 .review h2 {
