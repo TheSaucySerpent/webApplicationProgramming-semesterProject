@@ -8,19 +8,28 @@ h1 {
   font-family: 'Playfair Display SC', serif;
 }
 
+.walking-book {
+  width: 275px;
+  height: auto;
+}
+
+#walking-book-right {
+  transform: scaleX(-1);
+}
+
 .header-container {
   z-index: 0;
   background-image: url(/public/images/bookshelf.jpg);
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  margin-bottom: 75px;
+  justify-content: center;
+  gap: 150px;
   height: 340px;
 }
 
 .toolbar {
-  align-self: flex-end;
+  display: flex;
+  justify-content: center;
   padding: 15px;
 }
 

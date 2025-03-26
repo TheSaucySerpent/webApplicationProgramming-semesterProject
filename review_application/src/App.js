@@ -214,14 +214,16 @@ function Menu(props) {
 
   return <section>
     <div className='header-container'>
-      <div className='toolbar'>
-        <button id='new-button' onClick={() => setShowForm(!showForm)}>
-          {showForm ? "Cancel" : "New Review"}
-        </button>
-      </div>
+      <img src='images/walking_book.png' class='walking-book' id='walking-book-left' alt="Walking Book"></img>
       <div className='title-container'>
-      <h1>{props.title}</h1>
+        <h1>{props.title}</h1>
       </div>
+      <img src='images/walking_book.png' class='walking-book' id='walking-book-right' alt="Walking Book"></img>
+    </div>
+    <div className='toolbar'>
+      <button id='new-review-button' onClick={() => setShowForm(!showForm)}>
+        {showForm ? "Cancel" : "New Review"}
+      </button>
     </div>
     {showForm ? <ReviewForm onSubmit={handleFormSubmit} editingReview={editingReview} /> : null}
     <div className="reviews"> {reviews.map((review) => (
