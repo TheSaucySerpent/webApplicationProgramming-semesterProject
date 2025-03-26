@@ -1,14 +1,38 @@
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #2B2B2B;
-  font-family: 'Georgia', serif;
-}
-
 .App {
   background-color: #2A664D;
-  text-align: center;
-  padding: 20px;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+.title-container {
+  background-color: #202430;
+  border-radius: 10px;
+  width: fit-content;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin:auto;
+}
+
+#page-title {
+  font-size: 48pt;
+  font-family: 'Playfair Display SC', serif;
+}
+
+button {
+  background-color: #00234B;
+  color: white;
+  border: none;
+  width: 150px;
+  height: 50px;
+  border-radius: 15px;
+}
+
+button:hover {
+  background-color: #869AA4;
 }
 
 h1 {

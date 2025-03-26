@@ -213,13 +213,15 @@ function Menu(props) {
   }
 
   return <section>
-    <h1>{props.title}</h1>
-
-    <button id='new-book-button' onClick={() => setShowForm(!showForm)}>
-      {showForm ? "Hide Form" : "Add New Book Review"}
-    </button>
+    <div className='toolbar'>
+      <button id='new-button' onClick={() => setShowForm(!showForm)}>
+        {showForm ? "Cancel" : "New Review"}
+      </button>
+    </div>
+    <div className='title-container'>
+    <h1 id='page-title'>{props.title}</h1>
+    </div>
     {showForm ? <ReviewForm onSubmit={handleFormSubmit} editingReview={editingReview} /> : null}
-
     <div className="reviews"> {reviews.map((review) => (
       <Review key={review.isbn}
         isbn={review.isbn}
@@ -239,7 +241,7 @@ function Menu(props) {
 function App() {
   return (
     <div className="App">
-      <Menu title="My Book Reviews" reviews={initialData} />
+      <Menu title="Book Reviews" reviews={initialData} />
     </div>
   );
 }
