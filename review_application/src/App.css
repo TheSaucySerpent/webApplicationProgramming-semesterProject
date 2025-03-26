@@ -2,24 +2,35 @@
   background-color: #2A664D;
 }
 
-.toolbar {
+h1 {
+  font-size: 48pt;
+  color: #D5C7AC;
+  font-family: 'Playfair Display SC', serif;
+}
+
+.header-container {
+  z-index: 0;
+  background-image: url(/public/images/bookshelf.jpg);
   display: flex;
-  justify-content: flex-end;
-  padding: 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 75px;
+  height: 340px;
+}
+
+.toolbar {
+  align-self: flex-end;
+  padding: 15px;
 }
 
 .title-container {
-  background-color: #202430;
+  background-color: #00234B;
   border-radius: 10px;
-  width: fit-content;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin:auto;
-}
-
-#page-title {
-  font-size: 48pt;
-  font-family: 'Playfair Display SC', serif;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  max-height: 100px; 
 }
 
 button {
@@ -33,11 +44,6 @@ button {
 
 button:hover {
   background-color: #869AA4;
-}
-
-h1 {
-  font-size: 36pt;
-  color: #D5C7AC;
 }
 
 .reviews {

@@ -213,13 +213,15 @@ function Menu(props) {
   }
 
   return <section>
-    <div className='toolbar'>
-      <button id='new-button' onClick={() => setShowForm(!showForm)}>
-        {showForm ? "Cancel" : "New Review"}
-      </button>
-    </div>
-    <div className='title-container'>
-    <h1 id='page-title'>{props.title}</h1>
+    <div className='header-container'>
+      <div className='toolbar'>
+        <button id='new-button' onClick={() => setShowForm(!showForm)}>
+          {showForm ? "Cancel" : "New Review"}
+        </button>
+      </div>
+      <div className='title-container'>
+      <h1>{props.title}</h1>
+      </div>
     </div>
     {showForm ? <ReviewForm onSubmit={handleFormSubmit} editingReview={editingReview} /> : null}
     <div className="reviews"> {reviews.map((review) => (
