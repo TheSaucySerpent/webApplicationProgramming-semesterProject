@@ -157,33 +157,35 @@ function ReviewForm(props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="review-form">
-      <div>
-        <label>ISBN:</label>
-        <input type="text" name="isbn" value={form.isbn} onChange={handleChange} required />
-      </div>
-      <div>
-        <label>Title:</label>
-        <input type="text" name="title" value={form.title} onChange={handleChange} required />
-      </div>
-      <div>
-        <label>Author:</label>
-        <input type="text" name="author" value={form.author} onChange={handleChange} required />
-      </div>
-      <div>
-        <label>Release Year:</label>
-        <input type="number" name="release_year" value={form.release_year} onChange={handleChange} required />
-      </div>
-      <div>
-        <label>Ranking (0-5):</label>
-        <input type="number" name="ranking" value={form.ranking} onChange={handleChange} min="0" max="5" step="0.5" required />
-      </div>
-      <div>
-        <label>Review:</label>
-        <textarea name="review" value={form.review} onChange={handleChange} required />
-      </div>
-      <button type="submit">Submit Review</button>
-    </form>
+    <div className='review-form-container'>
+      <form onSubmit={handleSubmit} className="review-form">
+        <div className='form-field'>
+          <label>ISBN:</label>
+          <input type="text" name="isbn" value={form.isbn} onChange={handleChange} required />
+        </div>
+        <div className='form-field'>
+          <label>Title:</label>
+          <input type="text" name="title" value={form.title} onChange={handleChange} required />
+        </div>
+        <div className='form-field'>
+          <label>Author:</label>
+          <input type="text" name="author" value={form.author} onChange={handleChange} required />
+        </div>
+        <div className='form-field'>
+          <label>Release Year:</label>
+          <input type="number" name="release_year" value={form.release_year} onChange={handleChange} required />
+        </div>
+        <div className='form-field'>
+          <label>Ranking:</label>
+          <input type="number" name="ranking" value={form.ranking} onChange={handleChange} min="0" max="5" step="0.5" required />
+        </div>
+        <div className='form-field'>
+          <label>Review:</label>
+          <textarea name="review" value={form.review} onChange={handleChange} required />
+        </div>
+        <button type="submit" id='submit-button'>Submit</button>
+        </form>
+    </div>
   );  
 }
 
@@ -245,7 +247,7 @@ function Menu(props) {
 function App() {
   return (
     <div className="App">
-      <Menu title="Book Reviews" reviews={initialData} />
+      <Menu title="The Bookery" reviews={initialData} />
     </div>
   );
 }
