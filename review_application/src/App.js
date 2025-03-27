@@ -223,7 +223,12 @@ function Menu(props) {
       <img src='images/walking_book.png' class='walking-book' id='walking-book-right' alt="Walking Book"></img>
     </div>
     <div className='toolbar'>
-      <button id='new-review-button' onClick={() => setShowForm(!showForm)}>
+      <button id='new-review-button' onClick={() => {
+        if (showForm) {
+          setEditingReview(null);
+        }
+        setShowForm(!showForm)
+      }}>
         {showForm ? "Cancel" : "New Review"}
       </button>
     </div>
