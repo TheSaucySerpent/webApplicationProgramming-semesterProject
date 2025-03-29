@@ -117,7 +117,7 @@ function Review(props) {
 
     <p>ISBN: {props.isbn}</p>
     <p>Ranking: {getReviewStars(props.ranking)}</p>
-    <p>Release Year: {props.release_year}</p>
+    <p>Release Year: {Math.abs(props.release_year)} {props.release_year < 0 ? "BC" : ""}</p>
     <p>Review: {props.review}</p>
   </div>
 }
@@ -145,6 +145,50 @@ function ReviewForm(props) {
 
   function handleSubmit(event) {
     event.preventDefault(); // prevent default form submission behavior
+
+    // validation for ISBN (must be a 10 or 13 digit number, X allowed for checksum position)
+    if (!/^\d{9}[\dXx]$|^\d{13}$/.test(form.isbn)) {
+      alert("ISBN must be a 10 or 13 digit number, with 'X' allowed as the last character for 10-digit ISBNs");
+      return;
+    }
+    
+    // validation for Title
+    // must be less than 150 characters (already ensured to not be empty since field is required)
+    if(!/^[a-zA-Z0-9]{4,}/.test(form.title) || form.title.length > 150) {
+      alert("Title must be between 4 and 150 characters")
+      return;
+    }
+
+    // validation for Author
+    // must be at least 1 character at start (cannot start with a number)
+    if(!/^[a-zA-Z]+/.test(form.author)) {
+      alert("Author must be 1 or more characters and cannot start with a number ")
+      return;
+    }
+
+    // validation for Release Year
+    const currentYear = new Date().getFullYear() // get the current year
+    // negative release years are assumed to be BCE, and thus it is okay to not have 4 digits
+    // this is less bothersome than requiring the user to select year type from a dropdown menu
+    if(form.release_year > 0 && form.release_year.length !== 4) {
+      alert("Release year must be exactly 4 digits. Negative values denote BCE release years")
+      return;
+    }
+    // must be a year that has happened (BCE releases years will not trigger this because they are negative)
+    if(form.release_year > currentYear) {
+      alert("Release year cannot be year in the future")
+      return;
+    }
+
+    // ranking does not need validaiton here, as it is done through 
+    // the use of min/max for the number input type (ensures half increments between 0 and 5)
+
+    // validation for Review (may in the future want to allow users not to leave review)
+    if(!/^[a-zA-Z]+/.test(form.review)) {
+      alert("Review must be 1 or more characters and cannot start with a number")
+      return;
+    }
+
     props.onSubmit(form);
     setForm({ // reset the form fields after submission
       isbn: "",
