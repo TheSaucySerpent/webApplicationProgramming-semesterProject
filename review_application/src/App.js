@@ -191,7 +191,18 @@ function ReviewForm(props) {
       return;
     }
 
-    props.onSubmit(form);
+    // Ensure the numeric fields are properly formatted
+    const formattedForm = {
+      isbn: form.isbn, // Keep ISBN as a string
+      title: form.title,
+      author: form.author,
+      release_year: Number(form.release_year),
+      ranking: Number(form.ranking),
+      review: form.review
+    };
+
+    props.onSubmit(formattedForm);
+    // props.onSubmit(form);
     setForm({ // reset the form fields after submission
       isbn: "",
       title: "",
@@ -278,11 +289,10 @@ function Menu(props) {
     
   }
   
-  async function handleFormSubmit(form) {
+  async function handleSubmit(form) {
     if (editingReview) {
       // update the existing review in Firestore
       const review = doc(firestore, 'reviews', editingReview.isbn);
-      console.log(form);
       await updateDoc(review, form);
       setReviews(reviews.map((r) => r.isbn === editingReview.isbn ? form : r))
       setEditingReview(null);
@@ -314,7 +324,7 @@ function Menu(props) {
         {showForm ? "Cancel" : "New Review"}
       </button>
     </div>
-    {showForm ? <ReviewForm onSubmit={handleFormSubmit} editingReview={editingReview} /> : null}
+    {showForm ? <ReviewForm onSubmit={handleSubmit} editingReview={editingReview} /> : null}
     <div className="reviews"> {reviews.map((review) => (
       <Review key={review.isbn}
         isbn={review.isbn}

@@ -2,7 +2,7 @@ import { firestore } from './firebaseConfig.js';
 import { collection, setDoc, doc} from 'firebase/firestore';
 
 const initialData = [{
-  "isbn": 9780307887443,
+  "isbn": "9780307887443",
   "title": "Ready Player One: A Novel",
   "author": "Ernest Cline",
   "release_year": 2011,
@@ -14,7 +14,7 @@ const initialData = [{
   and I can't wait to explore it and see how the references are handled in the book as opposed to the movie.`
 },
 {
-  "isbn": 9781501182099,
+  "isbn": "9781501182099",
   "title": "IT: A Novel",
   "author": "Stephen King",
   "release_year": 1986,
@@ -27,7 +27,7 @@ const initialData = [{
   further.`
 },
 {
-  "isbn": 9780439023481,
+  "isbn": "9780439023481",
   "title": "The Hunger Games",
   "author": "Suzanne Collins",
   "release_year": 2008,
@@ -44,7 +44,7 @@ const initialData = [{
   come to tie into each other.`
 },
 {
-  "isbn": 9798212979993,
+  "isbn": "9798212979993",
   "title": "Catching Fire",
   "author": "Suzanne Collins",
   "release_year": 2009,
@@ -57,7 +57,7 @@ const initialData = [{
   again and never tire of the intricate world building and character development of this entry.`
 },
 {
-  "isbn": 9798212980005,
+  "isbn": "9798212980005",
   "title": "Mockingjay",
   "author": "Suzanne Collins",
   "release_year": 2010,
@@ -80,7 +80,7 @@ const initialData = [{
   this was an excellent conclusion to the series, and I'm so glad I got to experience it.`  
 },
 {
-  "isbn": 9780316737371,
+  "isbn": "9780316737371",
   "title": "How to Train Your Dragon",
   "author": "Cressida Cowell",
   "release_year": 2003,
