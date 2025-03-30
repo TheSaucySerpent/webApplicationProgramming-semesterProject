@@ -103,7 +103,7 @@ const initializeFirestore = async () => {
   const reviewsCollection = collection(firestore, 'reviews'); // reference to the 'reviews' collection
   for (const review of initialData) {
     try {
-      await setDoc(doc(reviewsCollection, review.isbn.toString()), review); // use isbm as the document ID
+      await setDoc(doc(reviewsCollection, review.isbn.toString()), review); // use isbn as the document ID
       console.log(`Added review with ISBN ${review.isbn}`);
     }
     catch (error) {
