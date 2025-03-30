@@ -1,5 +1,7 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { collection, getDocs, setDoc, deleteDoc, doc } from 'firebase/firestore';
+import { firestore } from './firebaseConfig';
 
 const initialData = [{
   "isbn": 9780307887443,
@@ -234,9 +236,20 @@ function ReviewForm(props) {
 }
 
 function Menu(props) {
-  const [reviews, setReviews] = React.useState(initialData);
+  const [reviews, setReviews] = React.useState([]);
   const [showForm,  setShowForm] = React.useState(false);
   const [editingReview, setEditingReview] = React.useState(null);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      const reviewsCollection = collection(firestore, 'reviews');
+      const reviewsSnapshot = await getDocs(reviewsCollection);
+      const reviewList = reviewsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data()}));
+      setReviews(reviewList);
+    };
+    
+    fetchReviews();
+  }, []); // run only once the component mounts
 
   function handleEdit(review) {
     setEditingReview(review);
@@ -247,12 +260,16 @@ function Menu(props) {
     setReviews(reviews.filter((r) => r.isbn !== isbn));
   }
   
-  function handleFormSubmit(form) {
+  async function handleFormSubmit(form) {
     if (editingReview) {
+      // update the existing review in Firestore
       setReviews(reviews.map((r) => r.isbn === editingReview.isbn ? form : r))
       setEditingReview(null);
     }
     else {
+      // add new review to Firestore
+      const newReview = doc(collection(firestore, 'reviews'), form.isbn);
+      await setDoc(newReview, form)
       setReviews([...reviews, form]);
     }
     setShowForm(false);
