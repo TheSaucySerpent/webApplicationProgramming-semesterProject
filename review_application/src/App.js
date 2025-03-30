@@ -264,8 +264,18 @@ function Menu(props) {
     setShowForm(true);
   }
 
-  function handleDelete(isbn) {
-    setReviews(reviews.filter((r) => r.isbn !== isbn));
+  async function handleDelete(isbn) {
+    try {
+      // create a reference to the document to delete
+      const reviewRef = doc(firestore, 'reviews', isbn);
+      await deleteDoc(reviewRef)
+      setReviews(reviews.filter((r) => r.isbn !== isbn));
+      console.log("Review deleted sucessfully!");
+    }
+    catch (error) {
+      console.error("Error deleting review", error);
+    }
+    
   }
   
   async function handleFormSubmit(form) {
