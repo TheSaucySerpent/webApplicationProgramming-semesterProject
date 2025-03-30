@@ -155,9 +155,10 @@ function ReviewForm(props) {
     }
     
     // validation for Title
-    // must be less than 150 characters (already ensured to not be empty since field is required)
-    if(!/^[a-zA-Z0-9]{4,}/.test(form.title) || form.title.length > 150) {
-      alert("Title must be between 4 and 150 characters")
+    // must be less than 5000 characters (already ensured to not be empty since field is required)
+    // this is the length that LetterBoxd uses with no other restrictions
+    if(form.title.length > 150) {
+      alert("Title must be less than 5000 characters")
       return;
     }
 
@@ -172,7 +173,7 @@ function ReviewForm(props) {
     const currentYear = new Date().getFullYear() // get the current year
     // negative release years are assumed to be BCE, and thus it is okay to not have 4 digits
     // this is less bothersome than requiring the user to select year type from a dropdown menu
-    if(form.release_year > 0 && form.release_year.length !== 4) {
+    if(form.release_year > 0 && !/^\d{4}$/.test(form.release_year)) {
       alert("Release year must be exactly 4 digits. Negative values denote BCE release years")
       return;
     }
