@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect } from 'react';
-import { collection, getDocs, setDoc, updateDoc, deleteDoc, doc, query, where, getCountFromServer} from 'firebase/firestore';
+import { collection, getDocs, setDoc, updateDoc, deleteDoc, doc, query, where, getCountFromServer, getDoc} from 'firebase/firestore';
 import { firestore } from './firebaseConfig';
 
 // const initialData = [{
@@ -300,11 +300,10 @@ function Menu(props) {
     }
     else {
       // add new review to Firestore (need to ensure isbn isn't there already)
-      const reviewsRef = collection(firestore, 'reviews')
-      const q = query(reviewsRef, where("isbn", "==", form.isbn))
-      const querySnapshot = await getCountFromServer(q);
+      const bookRef = doc(firestore, 'reviews', form.isbn);
+      const docSnapshot = await getDoc(bookRef);
       
-      if (querySnapshot.data().count > 0) {
+      if (docSnapshot.exists()) {
         alert("Cannot create a new book with duplicate ISBN");
       }
       else {
