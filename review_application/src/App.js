@@ -1,7 +1,9 @@
 import './App.css';
 import React, { useEffect } from 'react';
 import { collection, getDocs, setDoc, updateDoc, deleteDoc, doc, getDoc} from 'firebase/firestore';
-import { firestore } from './firebaseConfig';
+import { authentication, firestore } from './firebaseConfig';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import Login from './Login';
 
 function Review(props) {
   const getReviewStars = (rating) => {
@@ -226,6 +228,7 @@ function Menu(props) {
       <img src='images/walking_book.png' class='walking-book' id='walking-book-right' alt="Walking Book"></img>
     </div>
     <div className='toolbar'>
+      <button id='logout-button' onClick={props.onLogout}>Logout</button>
       <button id='new-review-button' onClick={() => {
         if (showForm) {
           setEditingReview(null);
@@ -253,9 +256,33 @@ function Menu(props) {
 }
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [user, setUser] = React.useState(null);
+
+  useEffect(() => {
+    // Listen for authentication state changes
+    const unsubscribe = onAuthStateChanged(authentication, (currentUser) => {
+      if (currentUser) {
+        setIsLoggedIn(true);
+        setUser(currentUser); // set user to the currently authenticated user
+      } else {
+        setIsLoggedIn(false);
+        setUser(null); // reset user state when not logged in
+      }
+    });
+
+    return () => unsubscribe(); // cleanup subscription on unmount
+  }, []);
+
+  async function handleLogout() {
+    await signOut(authentication);
+    setIsLoggedIn(false);
+    setUser(null);
+  };
+
   return (
     <div className="App">
-      <Menu title="The Bookery"/>
+      {isLoggedIn ? <Menu title="The Bookery" user={user} onLogout={handleLogout}/> : <Login onLogin={() => setIsLoggedIn(true)} />}
     </div>
   );
 }
