@@ -155,8 +155,7 @@ function ReviewForm(props) {
     }
     
     // validation for Title
-    // must be less than 5000 characters (already ensured to not be empty since field is required)
-    // this is the length that LetterBoxd uses with no other restrictions
+    // must be less than 150 characters (already ensured to not be empty since field is required)
     if(form.title.length > 150) {
       alert("Title must be less than 150 characters")
       return;
@@ -187,8 +186,10 @@ function ReviewForm(props) {
     // the use of min/max for the number input type (ensures half increments between 0 and 5)
 
     // validation for Review (may in the future want to allow users not to leave review)
-    if(!/^[a-zA-Z]+/.test(form.review)) {
-      alert("Review must be 1 or more characters and cannot start with a number")
+    // must be less than 5000 characters (already ensured to not be empty since field is required)
+    // this is the length that LetterBoxd uses with no other restrictions
+    if(form.review.length > 5000) {
+      alert("Review must be less than 5000 characters");
       return;
     }
 
