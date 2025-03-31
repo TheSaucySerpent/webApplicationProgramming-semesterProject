@@ -158,7 +158,7 @@ function ReviewForm(props) {
     // must be less than 5000 characters (already ensured to not be empty since field is required)
     // this is the length that LetterBoxd uses with no other restrictions
     if(form.title.length > 150) {
-      alert("Title must be less than 5000 characters")
+      alert("Title must be less than 150 characters")
       return;
     }
 
