@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect } from 'react';
-import { collection, getDocs, setDoc, updateDoc, deleteDoc, doc, query, where, getCountFromServer, getDoc} from 'firebase/firestore';
+import { collection, getDocs, setDoc, updateDoc, deleteDoc, doc, getDoc} from 'firebase/firestore';
 import { firestore } from './firebaseConfig';
 
 function Review(props) {
@@ -95,9 +95,9 @@ function ReviewForm(props) {
       return;
     }
 
-    // Ensure the numeric fields are properly formatted
+    // ensure the numeric fields are properly formatted
     const formattedForm = {
-      isbn: form.isbn, // Keep ISBN as a string
+      isbn: form.isbn, // Keep ISBN as a string (can have X in checksun)
       title: form.title,
       author: form.author,
       release_year: Number(form.release_year),
@@ -163,7 +163,7 @@ function Menu(props) {
     };
     
     fetchReviews();
-  }, []); // run only once the component mounts
+  }, []); // [] ensures this runs only once when the component mounts (first added to the DOM)
 
   function handleEdit(review) {
     // don't want to pass entire review because review has helper functions like onEdit and onDelete
