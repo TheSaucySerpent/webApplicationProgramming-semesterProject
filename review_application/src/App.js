@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect } from 'react';
-import { collection, getDocs, setDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, setDoc, updateDoc, deleteDoc, doc, query, where, getCountFromServer} from 'firebase/firestore';
 import { firestore } from './firebaseConfig';
 
 // const initialData = [{
@@ -299,10 +299,19 @@ function Menu(props) {
       setEditingReview(null);
     }
     else {
-      // add new review to Firestore
-      const newReview = doc(firestore, 'reviews', form.isbn);
-      await setDoc(newReview, form)
-      setReviews([...reviews, form]);
+      // add new review to Firestore (need to ensure isbn isn't there already)
+      const reviewsRef = collection(firestore, 'reviews')
+      const q = query(reviewsRef, where("isbn", "==", form.isbn))
+      const querySnapshot = await getCountFromServer(q);
+      
+      if (querySnapshot.data().count > 0) {
+        alert("Cannot create a new book with duplicate ISBN");
+      }
+      else {
+        const newReview = doc(firestore, 'reviews', form.isbn);
+        await setDoc(newReview, form)
+        setReviews([...reviews, form]);
+      }
     }
     setShowForm(false);
   }
