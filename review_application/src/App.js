@@ -162,11 +162,12 @@ function ReviewForm(props) {
     }
 
     // validation for Author
-    // must be at least 1 character at start (cannot start with a number)
-    if(!/^[a-zA-Z]+/.test(form.author)) {
-      alert("Author must be 1 or more characters and cannot start with a number ")
+    // must start with a letter and can include letters, numbers, spaces, periods, and hyphens
+    if (!/^[a-zA-Z][a-zA-Z0-9 .-]*$/.test(form.author)) {
+      alert("Author must start with a letter and can include letters, numbers, spaces, periods, and hyphens.");
       return;
     }
+
 
     // validation for Release Year
     const currentYear = new Date().getFullYear() // get the current year
