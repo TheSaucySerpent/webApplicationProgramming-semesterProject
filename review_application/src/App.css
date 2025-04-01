@@ -1,4 +1,4 @@
-.App {
+body {
   background-color: #2A664D;
 }
 
@@ -31,6 +31,7 @@ h1 {
   display: flex;
   justify-content: center;
   padding: 15px;
+  gap: 15px;
 }
 
 .title-container {
@@ -136,4 +137,19 @@ textarea[name="review"] {
 .button-container {
   display: flex;
   gap: 10px;
+}
+
+/* need to eventually move these to own css page */
+#login-page {
+  text-align: center;
+}
+
+.login-form {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.login-form input {
+  width: 10%;
 }

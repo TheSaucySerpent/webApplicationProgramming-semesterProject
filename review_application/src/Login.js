@@ -42,10 +42,10 @@ const Login = (props) => {
   }
 
   return (
-    <div>
+    <div id="login-page">
       <h1>{isRegistering ? 'Create Account' : 'Login'}</h1>
       {errorMessage ? <p>{errorMessage}</p> : null}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='login-form'>
         {isRegistering && (<input
           type="display-name"
           placeholder="Display Name"
@@ -70,18 +70,20 @@ const Login = (props) => {
         />
         <button type="submit">{isRegistering ? 'Register' : 'Login'}</button>
       </form>
-      <button type="toggle-is-registering" onClick={() => {
-        setIsRegistering(!isRegistering);
-        setErrorMessage(''); // clear error message when switching modes
-      }}>
-        {isRegistering ? 'I already have an account' : 'Register'}
-      </button>
-      <button type="continue-without-login" onClick={() => {
-        props.onLogin(); // act like the user has just logged in
-        setErrorMessage(''); // clear error message when bypassing login
-      }}>
-        Continue Without Login
-      </button>
+      <div className='toolbar'>
+        <button type="toggle-is-registering" onClick={() => {
+          setIsRegistering(!isRegistering);
+          setErrorMessage(''); // clear error message when switching modes
+        }}>
+          {isRegistering ? 'I already have an account' : 'Register'}
+        </button>
+        <button type="continue-without-login" onClick={() => {
+          props.onLogin(); // act like the user has just logged in
+          setErrorMessage(''); // clear error message when bypassing login
+        }}>
+          Continue Without Login
+        </button>
+      </div>
     </div>
   );
 };
