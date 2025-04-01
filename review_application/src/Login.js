@@ -62,6 +62,12 @@ const Login = (props) => {
       }}>
         {isRegistering ? 'I already have an account' : 'Register'}
       </button>
+      <button type="continue-without-login" onClick={() => {
+        props.onLogin(); // act like the user has just logged in
+        setErrorMessage(''); // clear error message when bypassing login
+      }}>
+        Continue Without Login
+      </button>
     </div>
   );
 };

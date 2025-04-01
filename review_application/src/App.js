@@ -228,7 +228,7 @@ function Menu(props) {
       <img src='images/walking_book.png' class='walking-book' id='walking-book-right' alt="Walking Book"></img>
     </div>
     <div className='toolbar'>
-      <button id='logout-button' onClick={props.onLogout}>Logout</button>
+      <button id='logout-button' onClick={props.onLogout}>{props.user ? "Logout" : "Sign In"}</button>
       <button id='new-review-button' onClick={() => {
         if (showForm) {
           setEditingReview(null);
