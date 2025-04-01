@@ -6,6 +6,7 @@ const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   async function handleSubmit(event) {
     event.preventDefault(); // prevent default form submission behavior
@@ -21,13 +22,23 @@ const Login = (props) => {
       props.onLogin()
     }
     catch(error) {
-      console.log("Error with Sign in", error);
+      // handle Firebase authentication errors
+      if (error.code === 'auth/email-already-in-use') {
+        setErrorMessage('This email is already in use. Please log in instead.');
+      } else if (error.code === 'auth/invalid-credential') {
+        setErrorMessage('Invalid email or password. Please try again or register.');
+      } else if (error.code === 'auth/wrong-password') {
+        setErrorMessage('Incorrect password. Please try again.');
+      } else {
+        setErrorMessage(error.message); // fallback error message
+      }
     }
   }
 
   return (
     <div>
       <h1>{isRegistering ? 'Create Account' : 'Login'}</h1>
+      {errorMessage ? <p>{errorMessage}</p> : null}
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -47,6 +58,7 @@ const Login = (props) => {
       </form>
       <button type="toggle-is-registering" onClick={() => {
         setIsRegistering(!isRegistering);
+        setErrorMessage(''); // clear error message when switching modes
       }}>
         {isRegistering ? 'I already have an account' : 'Register'}
       </button>
