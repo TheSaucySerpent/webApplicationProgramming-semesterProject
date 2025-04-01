@@ -15,6 +15,7 @@ function Review(props) {
   return <div className="review">
     <div className="review-header">
       <h2>{props.title} - {props.author}</h2>
+      <p>Reviewed by: {props.displayName}</p>
       <div className="button-container">
         <button id='edit-button' onClick={() => props.onEdit(props)}>Edit</button>
         <button id='delete-button' onClick={() => props.onDelete(props.isbn)}>Delete</button>
@@ -195,12 +196,23 @@ function Menu(props) {
   }
   
   async function handleSubmit(form) {
-    console.log(props.user)
+    // only logged in users can submit reviews (TODO add rule to firbase for this)
+    if (!props.user) {
+      alert("You must be logged in to submit a review.");
+      return;
+    }
+
+    // get the user's information
+    const userData = {
+      displayName: props.user.displayName,
+      uid: props.user.uid
+    };
+
     if (editingReview) {
       // update the existing review in Firestore
       const review = doc(firestore, 'reviews', editingReview.isbn);
-      await updateDoc(review, form);
-      setReviews(reviews.map((r) => r.isbn === editingReview.isbn ? form : r))
+      await updateDoc(review, { ...form, ...userData});
+      setReviews(reviews.map((r) => r.isbn === editingReview.isbn ? { ...form, ...userData } : r));
       setEditingReview(null);
     }
     else {
@@ -213,8 +225,8 @@ function Menu(props) {
       }
       else {
         const newReview = doc(firestore, 'reviews', form.isbn);
-        await setDoc(newReview, form)
-        setReviews([...reviews, form]);
+        await setDoc(newReview, { ...form, ...userData })
+        setReviews([...reviews, { ...form, ...userData }]);
       }
     }
     setShowForm(false);
@@ -250,6 +262,7 @@ function Menu(props) {
         review={review.review}
         onEdit={handleEdit}
         onDelete={handleDelete}
+        displayName={review.displayName}
       />
     ))}
     </div>
