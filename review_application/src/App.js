@@ -195,6 +195,7 @@ function Menu(props) {
   }
   
   async function handleSubmit(form) {
+    console.log(props.user)
     if (editingReview) {
       // update the existing review in Firestore
       const review = doc(firestore, 'reviews', editingReview.isbn);

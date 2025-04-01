@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { authentication } from './firebaseConfig';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 const Login = (props) => {
+  const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
@@ -13,7 +14,12 @@ const Login = (props) => {
     try {
       if (isRegistering) {
         // create a new user with the email and password
-        await createUserWithEmailAndPassword(authentication, email, password);
+        const userCredential = await createUserWithEmailAndPassword(authentication, email, password);
+
+        // update the user's display name
+        await updateProfile(userCredential.user, {
+          displayName: displayName
+        });
       }
       else {
         // sign in the established user
@@ -40,6 +46,14 @@ const Login = (props) => {
       <h1>{isRegistering ? 'Create Account' : 'Login'}</h1>
       {errorMessage ? <p>{errorMessage}</p> : null}
       <form onSubmit={handleSubmit}>
+        {isRegistering && (<input
+          type="display-name"
+          placeholder="Display Name"
+          value={displayName}
+          onChange={(event) => setDisplayName(event.target.value)}
+          required>
+          </input>
+        )}
         <input
           type="email"
           placeholder="Email"
