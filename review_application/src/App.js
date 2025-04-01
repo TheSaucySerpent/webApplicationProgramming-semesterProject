@@ -185,6 +185,14 @@ function Menu(props) {
     try {
       // create a reference to the document to delete
       const reviewRef = doc(firestore, 'reviews', isbn);
+      const reviewSnap = await getDoc(reviewRef);
+      const reviewData = reviewSnap.data(); 
+
+      if (props.user.uid !== reviewData.uid) {
+        alert("You can only delete your own reviews.");
+        return;
+      }
+
       await deleteDoc(reviewRef)
       setReviews(reviews.filter((r) => r.isbn !== isbn));
       console.log("Review deleted sucessfully!");
@@ -210,8 +218,16 @@ function Menu(props) {
 
     if (editingReview) {
       // update the existing review in Firestore
-      const review = doc(firestore, 'reviews', editingReview.isbn);
-      await updateDoc(review, { ...form, ...userData});
+      const reviewRef = doc(firestore, 'reviews', editingReview.isbn);
+      const reviewSnap = await getDoc(reviewRef);
+      const reviewData = reviewSnap.data(); 
+
+      if (props.user.uid !== reviewData.uid) {
+        alert("You can only edit your own reviews.");
+        return;
+      }
+
+      await updateDoc(reviewRef, { ...form, ...userData});
       setReviews(reviews.map((r) => r.isbn === editingReview.isbn ? { ...form, ...userData } : r));
       setEditingReview(null);
     }
