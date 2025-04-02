@@ -1,9 +1,12 @@
 import './App.css';
 import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { collection, getDocs, setDoc, updateDoc, deleteDoc, doc, getDoc} from 'firebase/firestore';
 import { authentication, firestore } from './firebaseConfig';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
+import Home from './Home';
 import Login from './Login';
+import Navbar from './Navbar';
 
 function Review(props) {
   const getReviewStars = (rating) => {
@@ -310,10 +313,29 @@ function App() {
     setUser(null);
   };
 
+  // return (
+  //   <div className="App">
+  //     {isLoggedIn ? <Menu title="The Bookery" user={user} onLogout={handleLogout}/> : <Login onLogin={() => setIsLoggedIn(true)} />}
+  //   </div>
+  // );
+
   return (
-    <div className="App">
-      {isLoggedIn ? <Menu title="The Bookery" user={user} onLogout={handleLogout}/> : <Login onLogin={() => setIsLoggedIn(true)} />}
-    </div>
+    <Router>
+      <Navbar />
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route 
+            path="/book-reviews" 
+            element={isLoggedIn ? <Menu title="The Bookery" user={user} onLogout={handleLogout} /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="/login" 
+            element={isLoggedIn ? <Navigate to="/book-reviews" /> : <Login onLogin={() => setIsLoggedIn(true)} />} 
+          />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
