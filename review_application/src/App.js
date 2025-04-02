@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { authentication } from './firebaseConfig';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import Home from './Home';
@@ -35,17 +35,17 @@ function App() {
 
   return (
     <Router>
-      <Navbar />
+      <Navbar/>
       <div className="App">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route 
             path="/book-reviews" 
-            element={isLoggedIn ? <Menu title="The Bookery" user={user} onLogout={handleLogout} /> : <Navigate to="/login" />} 
+            element={<Menu title="The Bookery" user={user} onLogout={handleLogout} />}
           />
           <Route 
             path="/login" 
-            element={isLoggedIn ? <Navigate to="/book-reviews" /> : <Login onLogin={() => setIsLoggedIn(true)} />} 
+            element={<Login onLogin={() => setIsLoggedIn(true)} />} 
           />
         </Routes>
       </div>

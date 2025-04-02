@@ -3,6 +3,7 @@ import { collection, getDocs, setDoc, updateDoc, deleteDoc, doc, getDoc } from '
 import { firestore } from '../firebaseConfig';
 import Review from './Review';
 import ReviewForm from './ReviewForm';
+import { Container, Row, Col, Button, Image, Card } from 'react-bootstrap';
 
 function Menu(props) {
   const [reviews, setReviews] = useState([]);

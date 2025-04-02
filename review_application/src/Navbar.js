@@ -1,14 +1,29 @@
 // src/Navbar.js
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Nav, Container } from 'react-bootstrap';
+import { Link , useLocation} from 'react-router-dom';
 
 function Navbar() {
+  // get the current route (needed for live updating tabs)
+  const location = useLocation();
+
   return (
-    <nav id='navbar'>
-      <Link to='/'>Home</Link>
-      <Link to='/book-reviews'>Book Reviews</Link>
-      <Link to='/game-reviews'>Game Reviews</Link>
-    </nav>
+    <Container className="d-flex justify-content-center">
+      <Nav variant="tabs" defaultActiveKey="/" activeKey={location.pathname}>
+      <Nav.Item>
+        <Nav.Link as={Link} to="/"  eventKey="/">Home</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link as={Link} to="/login" eventKey="/login">Login</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link as={Link} to="/book-reviews" eventKey="/book-reviews">Book Reviews</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link as={Link} to="/game-reviews" eventKey="/game-reviews">Game Reviews</Nav.Link>
+      </Nav.Item>
+      </Nav>
+    </Container>
   );
 }
 
