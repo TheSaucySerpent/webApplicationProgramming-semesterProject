@@ -163,5 +163,33 @@ textarea[name="review"] {
 }
 
 .home {
-  text-align: center;
+  display: flex; /* Enable flexbox */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center child elements horizontally */
+  justify-content: center; /* Center child elements vertically */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+}
+
+.home-screen-icon {
+  width: 150px;
+  height: auto;
+}
+
+#arcade-cabinet-icon {
+  transform: scaleX(-1);
+}
+
+.home-screen-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #58402F;
+  border-radius: 10px;
+  width: 75%;
+}
+
+h2 {
+  font-weight: normal;
 }
