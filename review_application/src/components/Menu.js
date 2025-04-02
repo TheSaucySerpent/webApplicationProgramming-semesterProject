@@ -11,7 +11,7 @@ function Menu(props) {
 
   useEffect(() => {
     const fetchReviews = async () => {
-      const reviewsCollection = collection(firestore, 'reviews');
+      const reviewsCollection = collection(firestore, 'bookReviews');
       const reviewsSnapshot = await getDocs(reviewsCollection);
       const reviewList = reviewsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data()}));
       setReviews(reviewList);
@@ -36,7 +36,7 @@ function Menu(props) {
   async function handleDelete(isbn) {
     try {
       // create a reference to the document to delete
-      const reviewRef = doc(firestore, 'reviews', isbn);
+      const reviewRef = doc(firestore, 'bookReviews', isbn);
       const reviewSnap = await getDoc(reviewRef);
       const reviewData = reviewSnap.data(); 
 
@@ -70,7 +70,7 @@ function Menu(props) {
 
     if (editingReview) {
       // update the existing review in Firestore
-      const reviewRef = doc(firestore, 'reviews', editingReview.isbn);
+      const reviewRef = doc(firestore, 'bookReviews', editingReview.isbn);
       const reviewSnap = await getDoc(reviewRef);
       const reviewData = reviewSnap.data(); 
 
@@ -85,14 +85,14 @@ function Menu(props) {
     }
     else {
       // add new review to Firestore (need to ensure isbn isn't there already)
-      const bookRef = doc(firestore, 'reviews', form.isbn);
+      const bookRef = doc(firestore, 'bookReviews', form.isbn);
       const docSnapshot = await getDoc(bookRef);
       
       if (docSnapshot.exists()) {
         alert("Cannot create a new book with duplicate ISBN");
       }
       else {
-        const newReview = doc(firestore, 'reviews', form.isbn);
+        const newReview = doc(firestore, 'bookReviews', form.isbn);
         await setDoc(newReview, { ...form, ...userData })
         setReviews([...reviews, { ...form, ...userData }]);
       }

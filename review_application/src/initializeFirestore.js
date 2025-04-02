@@ -100,10 +100,17 @@ const initialData = [{
 ];
 
 const initializeFirestore = async () => {
-  const reviewsCollection = collection(firestore, 'reviews'); // reference to the 'reviews' collection
+  const reviewsCollection = collection(firestore, 'bookReviews'); // reference to the 'bookReviews' collection
   for (const review of initialData) {
+    // Add user details to each review
+    const reviewWithUser = {
+      ...review,
+      displayName: "TheSaucySerpent",
+      uid: "YGY9x4m65cTfD77EjxBd1akyIQg1"
+    };
+
     try {
-      await setDoc(doc(reviewsCollection, review.isbn.toString()), review); // use isbn as the document ID
+      await setDoc(doc(reviewsCollection, review.isbn.toString()), reviewWithUser); // use isbn as the document ID
       console.log(`Added review with ISBN ${review.isbn}`);
     }
     catch (error) {

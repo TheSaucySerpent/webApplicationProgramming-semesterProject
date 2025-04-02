@@ -2,7 +2,7 @@ import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import { firestore } from './firebaseConfig.js';
 
 async function deleteCollection() {
-  const reviewsCollection = collection(firestore, 'reviews');
+  const reviewsCollection = collection(firestore, 'bookReviews');
   const reviewsSnapshot = await getDocs(reviewsCollection);
   
   const deletePromises = reviewsSnapshot.docs.map((doc) => {
