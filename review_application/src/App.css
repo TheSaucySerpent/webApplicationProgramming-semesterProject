@@ -193,3 +193,7 @@ textarea[name="review"] {
 h2 {
   font-weight: normal;
 }
+
+.login-button {
+  margin: 15px;
+}
