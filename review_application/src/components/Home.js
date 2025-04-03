@@ -10,9 +10,9 @@ function Home() {
   };
 
   return (
-    <Container fluid className='vh-100 d-flex flex-column justify-content-center align-items-center'>
+    <Container fluid className='d-flex flex-column justify-content-center align-items-center'>
       <Row className='mb-4'>
-        <Carousel className='custom-carousel'>
+        <Carousel className='mt-2 custom-carousel'>
           <Carousel.Item interval={5000}>
             <img src='/images/carousel_bookshelf.jpg' alt='Carousel Bookshelf'></img>
           </Carousel.Item>
