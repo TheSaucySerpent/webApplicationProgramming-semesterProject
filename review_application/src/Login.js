@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { authentication } from './firebaseConfig';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { Container, Row, Col, Form, Button, Alert} from 'react-bootstrap';
 
 const Login = (props) => {
   const [displayName, setDisplayName] = useState('');
@@ -44,52 +45,122 @@ const Login = (props) => {
   }
 
   return (
-    <div id="login-page">
-      <h1>{isRegistering ? 'Create Account' : 'Login'}</h1>
-      {errorMessage ? <p>{errorMessage}</p> : null}
-      <form onSubmit={handleSubmit} className='login-form'>
-        {isRegistering && (
-          <input
-            type="text"
-            placeholder="Display Name"
-            value={displayName}
-            onChange={(event) => setDisplayName(event.target.value)}
-            required
-          />
-        )}
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          required
-        />
-        <button type="submit">{isRegistering ? 'Register' : 'Login'}</button>
-      </form>
-      <div className='toolbar'>
-        <button type="button" onClick={() => {
-          setIsRegistering(!isRegistering);
-          setErrorMessage(''); // Clear error message when switching modes
-        }}>
-          {isRegistering ? 'I already have an account' : 'Register'}
-        </button>
-        <button type="button" onClick={() => {
-          props.onLogin(); // Act like the user has just logged in
-          setErrorMessage(''); // Clear error message when bypassing login
-          navigate('/book-reviews'); // Navigate to /book-reviews
-        }}>
-          Continue Without Login
-        </button>
-      </div>
-    </div>
-  );
+    <Container className="d-flex flex-column justify-content-center align-items-center">
+      <Row>
+        <Col xs={12} md={6}>
+          <h1 className="text-center mb-4">{isRegistering ? 'Create Account' : 'Login'}</h1>
+
+          {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}  
+
+          <Form onSubmit={handleSubmit}>
+            {isRegistering && (
+              <Form.Group className="mb-3">
+                <Form.Label>Display Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Display Name"
+                  value={displayName}
+                  onChange={(event) => setDisplayName(event.target.value)}
+                  required>
+                </Form.Control>
+              </Form.Group>
+            )}
+
+            <Form.Group className="mb-3" controlID="formBasicEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control 
+                type="email" 
+                placeholder="Enter Email" 
+                value={email} 
+                onChange={(event) => setEmail(event.target.value)} 
+                required>
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlID="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Enter Password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                required>
+              </Form.Control>
+            </Form.Group>
+
+            <Button type="submit" variant="primary" className="w-100">
+              {isRegistering ? "Register" : "Login"}
+            </Button>
+          </Form>
+
+          <Button varient="link" onClick={() => {
+            setIsRegistering(!isRegistering);
+            setErrorMessage('');
+          }}
+          >
+            {isRegistering ? "I already have an account" : "Register"}
+          </Button>
+
+          <Button varient="secondary" className="w-100" onClick={() => {
+            props.onLogin();
+            setErrorMessage('');
+            navigate('/book-reviews');
+          }}
+          >
+            Continue Without Login
+          </Button>
+        </Col>
+      </Row>
+    </Container>
+  )
+
+  // return (
+  //   <div id="login-page">
+  //     <h1>{isRegistering ? 'Create Account' : 'Login'}</h1>
+  //     {errorMessage ? <p>{errorMessage}</p> : null}
+  //     <form onSubmit={handleSubmit} className='login-form'>
+  //       {isRegistering && (
+  //         <input
+  //           type="text"
+  //           placeholder="Display Name"
+  //           value={displayName}
+  //           onChange={(event) => setDisplayName(event.target.value)}
+  //           required
+  //         />
+  //       )}
+  //       <input
+  //         type="email"
+  //         placeholder="Email"
+  //         value={email}
+  //         onChange={(event) => setEmail(event.target.value)}
+  //         required
+  //       />
+  //       <input
+  //         type="password"
+  //         placeholder="Password"
+  //         value={password}
+  //         onChange={(event) => setPassword(event.target.value)}
+  //         required
+  //       />
+  //       <button type="submit">{isRegistering ? 'Register' : 'Login'}</button>
+  //     </form>
+  //     <div className='toolbar'>
+  //       <button type="button" onClick={() => {
+  //         setIsRegistering(!isRegistering);
+  //         setErrorMessage(''); // Clear error message when switching modes
+  //       }}>
+  //         {isRegistering ? 'I already have an account' : 'Register'}
+  //       </button>
+  //       <button type="button" onClick={() => {
+  //         props.onLogin(); // Act like the user has just logged in
+  //         setErrorMessage(''); // Clear error message when bypassing login
+  //         navigate('/book-reviews'); // Navigate to /book-reviews
+  //       }}>
+  //         Continue Without Login
+  //       </button>
+  //     </div>
+  //   </div>
+  // );
 };
 
 export default Login;
