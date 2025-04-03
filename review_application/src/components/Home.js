@@ -1,4 +1,3 @@
-// src/Home.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Button, Carousel } from 'react-bootstrap';

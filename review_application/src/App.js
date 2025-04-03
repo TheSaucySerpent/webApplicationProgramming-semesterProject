@@ -3,9 +3,9 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { authentication } from './firebaseConfig';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import Home from './Home';
 import Login from './Login';
 import Navbar from './Navbar';
+import Home from './components/Home';
 import Menu from './components/Menu'
 
 function App() {
