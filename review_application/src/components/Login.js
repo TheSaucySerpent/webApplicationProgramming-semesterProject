@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { authentication } from './firebaseConfig';
+import { authentication } from '../firebaseConfig';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Form, Button, Alert} from 'react-bootstrap';

@@ -9,7 +9,7 @@ function Navbar() {
 
   return (
     <Container className="d-flex justify-content-center">
-      <Nav variant="tabs" defaultActiveKey="/" activeKey={location.pathname}>
+      <Nav variant="tabs" defaultActiveKey="/" activeKey={location.pathname} className="flex-wrap justify-content-center">
       <Nav.Item>
         <Nav.Link as={Link} to="/"  eventKey="/">Home</Nav.Link>
       </Nav.Item>
