@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { authentication } from './firebaseConfig';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import Navbar from './Navbar';
+import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Login from './components/Login';
 import Menu from './components/Menu'

@@ -8,8 +8,12 @@ function Navbar() {
   const location = useLocation();
 
   return (
-    <Container className="d-flex justify-content-center">
-      <Nav variant="tabs" defaultActiveKey="/" activeKey={location.pathname} className="flex-wrap justify-content-center">
+    <Container className="d-flex justify-content-center mb-1">
+      <Nav 
+        variant="tabs" 
+        defaultActiveKey="/" 
+        activeKey={location.pathname} 
+        className="flex-wrap justify-content-center custom-navbar">
       <Nav.Item>
         <Nav.Link as={Link} to="/"  eventKey="/">Home</Nav.Link>
       </Nav.Item>

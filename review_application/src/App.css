@@ -154,14 +154,6 @@ textarea[name="review"] {
   width: 10%;
 }
 
-/* navbar css */
-#navbar {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  padding: 15px;
-}
-
 .home {
   display: flex; /* Enable flexbox */
   flex-direction: column; /* Stack items vertically */
@@ -208,4 +200,14 @@ h2 {
 .custom-carousel img {
   width: 100%;
   height: 100%;
+}
+
+/* Custom Navbar */
+.custom-navbar {
+  background-color: #00234B;
+  border: none;
+}
+
+.custom-navbar .nav-link{
+  color: #D5C7AC;
 }
