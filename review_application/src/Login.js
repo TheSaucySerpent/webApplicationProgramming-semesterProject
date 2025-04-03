@@ -46,67 +46,85 @@ const Login = (props) => {
 
   return (
     <Container fluid className="d-flex flex-column justify-content-center align-items-center">
-      <h1 className="text-center mb-4">{isRegistering ? 'Create Account' : 'Login'}</h1>
+      <Row className="mb-2 text-center">
+        <h1>{isRegistering ? 'Create Account' : 'Login'}</h1>
+      </Row>
 
-      {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}  
+      <Row>
+        {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+      </Row>  
 
       <Form onSubmit={handleSubmit}>
-        {isRegistering && (
-          <Form.Group className="mb-3">
-            <Form.Label>Display Name</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter Display Name"
-              value={displayName}
-              onChange={(event) => setDisplayName(event.target.value)}
+        <Row>
+          {isRegistering && (
+            <Form.Group className="mb-3">
+              <Form.Label>Display Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter Display Name"
+                value={displayName}
+                onChange={(event) => setDisplayName(event.target.value)}
+                required>
+              </Form.Control>
+            </Form.Group>
+          )}
+        </Row>
+        
+        <Row>
+          <Form.Group className="mb-3" controlID="formBasicEmail">
+            <Form.Label>Email</Form.Label>
+            <Form.Control 
+              type="email" 
+              placeholder="Enter Email" 
+              value={email} 
+              onChange={(event) => setEmail(event.target.value)} 
               required>
             </Form.Control>
           </Form.Group>
-        )}
+        </Row>
 
-        <Form.Group className="mb-3" controlID="formBasicEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control 
-            type="email" 
-            placeholder="Enter Email" 
-            value={email} 
-            onChange={(event) => setEmail(event.target.value)} 
-            required>
-          </Form.Control>
-        </Form.Group>
+        <Row>
+          <Form.Group className="mb-3" controlID="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Enter Password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              required>
+            </Form.Control>
+          </Form.Group>
+        </Row>
 
-        <Form.Group className="mb-3" controlID="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Enter Password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            required>
-          </Form.Control>
-        </Form.Group>
-
-        <Button type="submit" variant="primary" className="w-100">
-          {isRegistering ? "Register" : "Login"}
-        </Button>
+        <Row className='mb-3'>
+          <Col className='d-flex justify-content-center align-items-center'>
+            <Button type="submit" variant="primary">
+              {isRegistering ? "Register" : "Login"}
+            </Button>
+          </Col>
+        </Row>
       </Form>
 
-      <Col className="d-flex justify-content-center gap-2 mt-3">
-        <Button variant="success" onClick={() => {
-          setIsRegistering(!isRegistering);
-          setErrorMessage('');
-        }}>
-          {isRegistering ? "I already have an account" : "Register"}
-        </Button>
+      <Row>
+        <Col xs={12} md={6} className="mb-3 d-flex justify-content-center">
+          <Button variant="primary" className="d-flex justify-content-center align-items-center" onClick={() => {
+            setIsRegistering(!isRegistering);
+            setErrorMessage('');
+          }}>
+            {isRegistering ? "I already have an account" : "Register"}
+          </Button>
+        </Col>
 
-        <Button variant="primary" onClick={() => {
-          props.onLogin();
-          setErrorMessage('');
-          navigate('/book-reviews');
-        }}>
-          Continue Without Login
-        </Button>
-      </Col>
+        <Col xs={12} md={6} className="mb-3 d-flex justify-content-center">
+          <Button variant="primary" className="d-flex justify-content-center align-items-center" onClick={() => {
+            props.onLogin();
+            setErrorMessage('');
+            navigate('/book-reviews');
+          }}>
+            Continue Without Login
+          </Button>
+        </Col>
+      </Row>
     </Container>
   );
 };
