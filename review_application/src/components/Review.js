@@ -14,16 +14,13 @@ function Review(props) {
         <Col>
           <h2>{props.title} - {props.author}</h2>
         </Col>
-        <Col>
+        <Col xs="auto">
           <p>Reviewed by: {props.displayName}</p>
         </Col>
-      </Row>
-      <Row className='d-flex justify-content-end'>
-        <Col xs="auto mb-3">
-          <Button variant="warning" onClick={() => props.onEdit(props)}>Edit</Button>
+        <Col xs="auto">
+          <Button variant="secondary" onClick={() => props.onEdit(props)}>Edit</Button>
         </Col>
-        
-        <Col xs="auto mb-3">
+        <Col xs="auto">
           <Button variant="danger" onClick={() => props.onDelete(props.isbn)}>Delete</Button>
         </Col>
       </Row>
@@ -41,21 +38,6 @@ function Review(props) {
       </Row>
     </Container>
   );
-  // return <div className="review">
-  //   <div className="review-header">
-  //     <h2>{props.title} - {props.author}</h2>
-  //     <p>Reviewed by: {props.displayName}</p>
-  //     <div className="button-container">
-  //       <button id='edit-button' onClick={() => props.onEdit(props)}>Edit</button>
-  //       <button id='delete-button' onClick={() => props.onDelete(props.isbn)}>Delete</button>
-  //     </div>
-  //   </div>
-
-  //   <p>ISBN: {props.isbn}</p>
-  //   <p>Ranking: {getReviewStars(props.ranking)}</p>
-  //   <p>Release Year: {Math.abs(props.release_year)} {props.release_year < 0 ? "BC" : ""}</p>
-  //   <p>Review: {props.review}</p>
-  // </div>
 }
 
 export default Review;
