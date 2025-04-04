@@ -92,102 +92,52 @@ function ReviewForm(props) {
   }
 
   return (
-    <Container fluid className="d-flex flex-column justify-content-center align-items-center review-form">
-      <Form onSubmit={handleSubmit}>
-        <Row>
-          <Col>
-            <Form.Group controlId="formISBN">
-              <Form.Label>ISBN</Form.Label>
-              <Form.Control type="text" name="isbn" value={form.isbn} onChange={handleChange} required />
-            </Form.Group>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col>
+    <Container fluid className="d-flex justify-content-center p-4 review-form">
+      <Form onSubmit={handleSubmit} className='w-75'>
+        <Row className="d-flex justify-content-center mb-4">
+          <Col md={6}>
             <Form.Group controlId="formTitle">
               <Form.Label>Title</Form.Label>
               <Form.Control type="text" name="title" value={form.title} onChange={handleChange} required />
             </Form.Group>
           </Col>
-        </Row>
-
-        <Row>
-          <Col>
+          <Col md={6}>
             <Form.Group controlId="formAuthor">
               <Form.Label>Author</Form.Label>
               <Form.Control type="text" name="author" value={form.author} onChange={handleChange} required />
             </Form.Group>
           </Col>
         </Row>
-
-        <Row>
-          <Col>
+        <Row className="d-flex justify-content-center mb-1">
+        <Col md={4}>
+            <Form.Group controlId="formISBN">
+              <Form.Label>ISBN</Form.Label>
+              <Form.Control type="text" name="isbn" value={form.isbn} onChange={handleChange} required />
+            </Form.Group>
+          </Col>
+          <Col md={3}>
             <Form.Group controlId="formReleaseYear">
               <Form.Label>Release Year</Form.Label>
               <Form.Control type="number" name="release_year" value={form.release_year} onChange={handleChange} required />
             </Form.Group>
           </Col>
-        </Row>
-
-        <Row>
-          <Col>
-            <Form.Group controlId="formRanking">
+          <Col md={2}>
+            <Form.Group controlId="formRanking" className="mb-3">
               <Form.Label>Ranking</Form.Label>
               <Form.Control type="number" name="ranking" value={form.ranking} onChange={handleChange} min="0" max="5" step="0.5" required />
             </Form.Group>
           </Col>
         </Row>
-
-        <Row>
-          <Col>
-            <Form.Group controlId="formReview">
-              <Form.Label>Review</Form.Label>
-              <Form.Control as="textarea" name="review" value={form.review} onChange={handleChange} required />
-            </Form.Group>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col className='d-flex justify-content-end'>
-            <Button variant="primary" type="submit" className="my-3">Submit</Button>
-          </Col>
-        </Row>
+        <Form.Group controlId="formReview" className="mb-3">
+          <Form.Label>Review</Form.Label>
+          <Form.Control as="textarea" rows={4} name="review" value={form.review} onChange={handleChange} required />
+        </Form.Group>
+        <div className="text-center">
+          <Button variant="primary" type="submit">Submit</Button>
+        </div>
       </Form>
     </Container>
   );
-
-  // return (
-  //   <div className='review-form-container'>
-  //     <form onSubmit={handleSubmit} className="review-form">
-  //       <div className='form-field'>
-  //         <label>ISBN:</label>
-  //         <input type="text" name="isbn" value={form.isbn} onChange={handleChange} required />
-  //       </div>
-  //       <div className='form-field'>
-  //         <label>Title:</label>
-  //         <input type="text" name="title" value={form.title} onChange={handleChange} required />
-  //       </div>
-  //       <div className='form-field'>
-  //         <label>Author:</label>
-  //         <input type="text" name="author" value={form.author} onChange={handleChange} required />
-  //       </div>
-  //       <div className='form-field'>
-  //         <label>Release Year:</label>
-  //         <input type="number" name="release_year" value={form.release_year} onChange={handleChange} required />
-  //       </div>
-  //       <div className='form-field'>
-  //         <label>Ranking:</label>
-  //         <input type="number" name="ranking" value={form.ranking} onChange={handleChange} min="0" max="5" step="0.5" required />
-  //       </div>
-  //       <div className='form-field'>
-  //         <label>Review:</label>
-  //         <textarea name="review" value={form.review} onChange={handleChange} required />
-  //       </div>
-  //       <button type="submit" id='submit-button'>Submit</button>
-  //       </form>
-  //   </div>
-  // );  
 }
 
 export default ReviewForm;

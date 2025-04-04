@@ -56,61 +56,23 @@ button:hover {
   background-color: #9b0707;
 }
 
-.reviews, .review-form-container {
+.reviews {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 25px;
 }
 
-.review, .review-form{
+.review {
   background-color: #58402F;
   width: 85%;
   text-align: left;
-  border: 1px solid #8B5E3C;
   padding: 15px;
   border-radius: 25px;
 }
 
-.review-form {
-  width: 45%;
-  left: 50%;
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  margin-bottom: 25px;
-  justify-content: center;
-  gap: 25px;
-}
-
 label {
   color: white;
-}
-
-input, textarea {
-  width: 100px;
-  padding: 10px;
-  border: 1px solid #8B5E3C;
-  border-radius: 5px;
-  background-color: #ffffff;
-}
-
-input[name=isbn] {
-  width: 100px;
-}
-
-input[name="title"] {
-  width: 175px
-}
-
-input[name="release_year"], input[name="ranking"] {
-  width: 55px
-}
-
-textarea[name="review"] {
-  width: 685px;
-  height: 100px;
-  resize: none;
 }
 
 .form-field {
@@ -210,4 +172,12 @@ h2 {
 
 .custom-navbar .nav-link{
   color: #D5C7AC;
+}
+
+/* Review Form */
+.review-form {
+  background-color: #58402F;
+  border-radius: 25px;
+  width: 65%;
+  margin-bottom: 35px;
 }
