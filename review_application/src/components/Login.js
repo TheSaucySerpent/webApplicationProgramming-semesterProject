@@ -71,7 +71,7 @@ const Login = (props) => {
         </Row>
         
         <Row>
-          <Form.Group className="mb-3" controlID="formBasicEmail">
+          <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control 
               type="email" 
@@ -84,7 +84,7 @@ const Login = (props) => {
         </Row>
 
         <Row>
-          <Form.Group className="mb-3" controlID="formBasicPassword">
+          <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
