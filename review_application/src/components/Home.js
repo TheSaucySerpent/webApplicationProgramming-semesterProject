@@ -12,14 +12,16 @@ function Home() {
   return (
     <Container fluid className='d-flex flex-column justify-content-center align-items-center'>
       <Row className='mb-4'>
-        <Carousel className='mt-2 custom-carousel'>
-          <Carousel.Item interval={5000}>
-            <img src='/images/carousel_bookshelf.jpg' alt='Carousel Bookshelf'></img>
+      <Carousel className="mt-2 custom-carousel">
+        {Array.from({ length: 9 }, (_, index) => (
+          <Carousel.Item key={index} interval={5000}>
+            <img
+              src={`/images/carousel/carousel${index + 1}.jpg`}
+              alt={`Carousel ${index + 1}`}
+            />
           </Carousel.Item>
-          <Carousel.Item interval={5000}>
-            <img src='/images/carousel_arcade.jpg' alt='Carousel Gameroom'></img>
-          </Carousel.Item>
-        </Carousel>
+        ))}
+      </Carousel>
       </Row>
       <Row>
         <Col className='d-flex justify-content-center'>
