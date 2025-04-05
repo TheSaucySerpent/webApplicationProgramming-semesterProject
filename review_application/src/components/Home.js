@@ -12,7 +12,7 @@ function Home() {
   return (
     <Container fluid className='d-flex flex-column justify-content-center align-items-center'>
       <Row className='mb-4'>
-      <Carousel className="mt-2 custom-carousel">
+      <Carousel className="custom-carousel">
         {Array.from({ length: 9 }, (_, index) => (
           <Carousel.Item key={index} interval={5000}>
             <img
@@ -38,7 +38,7 @@ function Home() {
       </Row>
       <Row>
         <Col>
-          <Button onClick={handleLoginClick} variant='primary'>Go to Login</Button>
+          <button onClick={handleLoginClick}>Go to Login</button>
         </Col>
       </Row>
     </Container>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { authentication } from '../firebaseConfig';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { Container, Row, Col, Form, Button, Alert} from 'react-bootstrap';
+import { Container, Row, Col, Form, Alert} from 'react-bootstrap';
 
 const Login = (props) => {
   const [displayName, setDisplayName] = useState('');
@@ -98,31 +98,31 @@ const Login = (props) => {
 
         <Row className='mb-3'>
           <Col className='d-flex justify-content-center align-items-center'>
-            <Button type="submit" variant="primary">
+            <button type="submit">
               {isRegistering ? "Register" : "Login"}
-            </Button>
+            </button>
           </Col>
         </Row>
       </Form>
 
       <Row>
         <Col xs={12} md={6} className="mb-3 d-flex justify-content-center">
-          <Button variant="primary" className="d-flex justify-content-center align-items-center" onClick={() => {
+          <button variant="primary" className="d-flex justify-content-center align-items-center" onClick={() => {
             setIsRegistering(!isRegistering);
             setErrorMessage('');
           }}>
             {isRegistering ? "I already have an account" : "Register"}
-          </Button>
+          </button>
         </Col>
 
         <Col xs={12} md={6} className="mb-3 d-flex justify-content-center">
-          <Button variant="primary" className="d-flex justify-content-center align-items-center" onClick={() => {
+          <button variant="primary" className="d-flex justify-content-center align-items-center" onClick={() => {
             props.onLogin();
             setErrorMessage('');
             navigate('/book-reviews');
           }}>
             Continue Without Login
-          </Button>
+          </button>
         </Col>
       </Row>
     </Container>

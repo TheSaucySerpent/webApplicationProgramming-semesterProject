@@ -8,7 +8,7 @@ function Navbar() {
   const location = useLocation();
 
   return (
-    <Container className="d-flex justify-content-center mb-1">
+    <Container className="d-flex justify-content-center mb-3">
       <Nav 
         variant="tabs" 
         defaultActiveKey="/" 

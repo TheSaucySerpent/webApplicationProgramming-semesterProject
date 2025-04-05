@@ -3,7 +3,7 @@ import { collection, getDocs, setDoc, updateDoc, deleteDoc, doc, getDoc } from '
 import { firestore } from '../firebaseConfig';
 import Review from './Review';
 import ReviewForm from './ReviewForm';
-import { Container, Row, Col, Button, Image, Card } from 'react-bootstrap';
+import { Container, Row, Col, Image } from 'react-bootstrap';
 
 function Menu(props) {
   const [reviews, setReviews] = useState([]);
@@ -101,41 +101,60 @@ function Menu(props) {
     setShowForm(false);
   }
 
-  return <section>
-    <div className='header-container'>
-      <img src='images/walking_book.png' class='walking-book' id='walking-book-left' alt="Walking Book"></img>
-      <div className='title-container'>
-        <h1>{props.title}</h1>
-      </div>
-      <img src='images/walking_book.png' class='walking-book' id='walking-book-right' alt="Walking Book"></img>
-    </div>
-    <div className='toolbar'>
-      <button id='logout-button' onClick={props.onLogout}>{props.user ? "Logout" : "Sign In"}</button>
-      <button id='new-review-button' onClick={() => {
-        if (showForm) {
-          setEditingReview(null);
-        }
-        setShowForm(!showForm)
-      }}>
-        {showForm ? "Cancel" : "New Review"}
-      </button>
-    </div>
-    {showForm ? <ReviewForm onSubmit={handleSubmit} editingReview={editingReview} /> : null}
-    <div className="reviews"> {reviews.map((review) => (
-      <Review key={review.isbn}
-        isbn={review.isbn}
-        title = {review.title}
-        author={review.author}
-        release_year={review.release_year}
-        ranking={review.ranking}
-        review={review.review}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-        displayName={review.displayName}
-      />
-    ))}
-    </div>
-  </section>
+  return (
+    <Container>
+      <Row className='header-container justify-content-center align-items-center text-center flex-nowrap'>
+        <Col>
+          <Image src='images/walking_book.png' className='walking-book' id='walking-book-left' alt="Walking Book" fluid />
+        </Col>
+        <Col>
+          <h1 className='title-container'>{props.title}</h1>
+        </Col>
+        <Col>
+          <Image src='images/walking_book.png' className='walking-book' id='walking-book-right' alt="Walking Book" fluid />
+        </Col>
+      </Row>
+      <Row className='toolbar my-3 justify-content-center'>
+        <Col xs="auto">
+          <button
+            id="new-review-button"
+            onClick={() => {
+              if (showForm) {
+                setEditingReview(null);
+              }
+              setShowForm(!showForm);
+            }}
+          >
+            {showForm ? "Cancel" : "New Review"}
+          </button>
+        </Col>
+      </Row>
+      {showForm && (
+        <Row className="justify-content-center">
+          <Col md={8}>
+            <ReviewForm onSubmit={handleSubmit} editingReview={editingReview} />
+          </Col>
+        </Row>
+      )}
+      <Row className="mb-4 reviews d-flex flex-row">
+        {reviews.map((review) => (
+          <div key={review.isbn} className="me-3">
+            <Review
+              isbn={review.isbn}
+              title={review.title}
+              author={review.author}
+              release_year={review.release_year}
+              ranking={review.ranking}
+              review={review.review}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              displayName={review.displayName}
+            />
+          </div>
+        ))}
+      </Row>
+    </Container>
+  );
 }
 
 export default Menu;

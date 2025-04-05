@@ -9,7 +9,8 @@ h1 {
 }
 
 .walking-book {
-  width: 275px;
+  width: 100%;
+  max-width: 350px;
   height: auto;
 }
 
@@ -40,7 +41,8 @@ h1 {
   padding: 10px;
   display: flex;
   align-items: center;
-  max-height: 100px; 
+  max-height: 400px; 
+  width: 400px;
 }
 
 button {
@@ -53,7 +55,7 @@ button {
 }
 
 button:hover {
-  background-color: #9b0707;
+  background-color: #003F5C;
 }
 
 .reviews {
@@ -65,7 +67,7 @@ button:hover {
 
 .review {
   background-color: #58402F;
-  width: 85%;
+  width: 100%;
   text-align: left;
   padding: 15px;
   border-radius: 25px;
@@ -178,6 +180,6 @@ h2 {
 .review-form {
   background-color: #58402F;
   border-radius: 25px;
-  width: 65%;
+  width: 85%;
   margin-bottom: 35px;
 }

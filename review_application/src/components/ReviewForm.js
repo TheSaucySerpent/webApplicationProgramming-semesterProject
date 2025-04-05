@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 
 function ReviewForm(props) {
   const [form, setForm] = useState({
@@ -109,19 +109,19 @@ function ReviewForm(props) {
           </Col>
         </Row>
         <Row className="d-flex justify-content-center mb-1">
-        <Col md={4}>
+        <Col xs={12} md={4}>
             <Form.Group controlId="formISBN">
               <Form.Label>ISBN</Form.Label>
               <Form.Control type="text" name="isbn" value={form.isbn} onChange={handleChange} required />
             </Form.Group>
           </Col>
-          <Col md={3}>
+          <Col xs={6} md={4}>
             <Form.Group controlId="formReleaseYear">
               <Form.Label>Release Year</Form.Label>
               <Form.Control type="number" name="release_year" value={form.release_year} onChange={handleChange} required />
             </Form.Group>
           </Col>
-          <Col md={2}>
+          <Col xs={6} md={4}>
             <Form.Group controlId="formRanking" className="mb-3">
               <Form.Label>Ranking</Form.Label>
               <Form.Control type="number" name="ranking" value={form.ranking} onChange={handleChange} min="0" max="5" step="0.5" required />
@@ -130,10 +130,10 @@ function ReviewForm(props) {
         </Row>
         <Form.Group controlId="formReview" className="mb-3">
           <Form.Label>Review</Form.Label>
-          <Form.Control as="textarea" rows={4} name="review" value={form.review} onChange={handleChange} required />
+          <Form.Control as="textarea" rows={10} name="review" value={form.review} onChange={handleChange} required />
         </Form.Group>
         <div className="text-center">
-          <Button variant="primary" type="submit">Submit</Button>
+          <button type="submit">Submit</button>
         </div>
       </Form>
     </Container>
