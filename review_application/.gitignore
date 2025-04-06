@@ -23,4 +23,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # don't want API key visible
-.firebaseConfig.js 
+firebaseConfig.js 
