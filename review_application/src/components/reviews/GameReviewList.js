@@ -3,12 +3,15 @@ import { collection, getDocs, setDoc, updateDoc, deleteDoc, doc, getDoc } from '
 import { firestore } from '../../firebaseConfig';
 import GameReview from './GameReview';
 import GameReviewForm from './GameReviewForm';
-import { Container, Row, Col, Image, Button } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button, Dropdown, ButtonGroup, Alert } from 'react-bootstrap';
 
 function GameReviewList(props) {
   const [reviews, setReviews] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingReview, setEditingReview] = useState(null);
+  const [filter, setFilter] = useState('mine');
+  const [sortBy, setSortBy] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -21,6 +24,25 @@ function GameReviewList(props) {
     fetchReviews();
   }, []); // runs once on mount
 
+  useEffect(() => {
+      if (!props.user) {
+        setFilter('all');
+        setSortBy('');
+      }
+    }, [props.user]); // runs whenever the user changes
+  
+  useEffect(() => {
+    if (errorMessage) {
+      // set a timer to clear the error message after 5 seconds
+      const timer = setTimeout(() => {
+        setErrorMessage('');
+      }, 5000);
+
+      // cleanup the timer on component unmount or when errorMessage changes
+      return () => clearTimeout(timer);
+    }
+  }, [errorMessage]);
+
   function handleEdit(review) {
     setEditingReview(review);
     setShowForm(true);
@@ -32,8 +54,12 @@ function GameReviewList(props) {
       const reviewSnap = await getDoc(reviewRef);
       const reviewData = reviewSnap.data();
 
+      if(!props.user) {
+        setErrorMessage("You must be logged in to delete a review.");
+        return;
+      }
       if (props.user.uid !== reviewData.uid) {
-        alert("You can only delete your own reviews.");
+        setErrorMessage("You can only delete your own reviews.");
         return;
       }
 
@@ -47,7 +73,7 @@ function GameReviewList(props) {
 
   async function handleSubmit(form) {
     if (!props.user) {
-      alert("You must be logged in to submit a review.");
+      setErrorMessage("You must be logged in to submit a review.");
       return;
     }
 
@@ -62,7 +88,7 @@ function GameReviewList(props) {
       const reviewData = reviewSnap.data();
 
       if (props.user.uid !== reviewData.uid) {
-        alert("You can only edit your own reviews.");
+        setErrorMessage("You can only edit your own reviews.");
         return;
       }
 
@@ -74,7 +100,7 @@ function GameReviewList(props) {
       const docSnapshot = await getDoc(newReviewRef);
 
       if (docSnapshot.exists()) {
-        alert("Cannot create a new game with duplicate game title");
+        setErrorMessage("Cannot create a new game with duplicate game title");
       } else {
         await setDoc(newReviewRef, { ...form, ...userData });
         setReviews([...reviews, { ...form, ...userData, id: newReviewRef.id }]);
@@ -83,8 +109,33 @@ function GameReviewList(props) {
     setShowForm(false);
   }
 
+  const filteredReviews = reviews
+    .filter((r) => {
+      if (filter === 'mine') return props.user && r.uid === props.user.uid;
+      if (filter === 'others') return props.user && r.uid !== props.user.uid;
+      return true;
+    })
+    .sort((a, b) => {
+      if (sortBy === 'title' || sortBy === 'developer' || sortBy === 'genre') {
+        return a[sortBy].localeCompare(b[sortBy]);
+      }
+      if (sortBy === 'play_time' || sortBy === 'release_year' || sortBy === 'ranking') {
+        return Number(b[sortBy]) - Number(a[sortBy]);
+      }
+      return 0;
+    });
+
   return (
     <Container>
+      <Row className='d-flex justify-content-center'>
+        {errorMessage && (
+            <Col xs="auto">
+              <Alert variant="danger" className="m-0">
+                {errorMessage}
+              </Alert>
+            </Col>
+          )}
+      </Row>
       <Row className='text-end mb-3'>
         {props.user && (
               <div className="user-info">
@@ -120,6 +171,36 @@ function GameReviewList(props) {
             {showForm ? "Cancel" : "New Review"}
           </button>
         </Col>
+        <Col xs="auto">
+          <Dropdown as={ButtonGroup}>
+            <Dropdown.Toggle id="filter-dropdown" disabled={!props.user}>
+              Filter: {filter === 'mine' ? 'My Reviews' : filter === 'others' ? 'Others' : 'All'}
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => setFilter('all')}>All Reviews</Dropdown.Item>
+              <Dropdown.Item onClick={() => setFilter('mine')}>My Reviews</Dropdown.Item>
+              <Dropdown.Item onClick={() => setFilter('others')}>Others' Reviews</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Col>
+        <Col xs="auto">
+          <Dropdown as={ButtonGroup}>
+            <Dropdown.Toggle id="sort-dropdown">
+              {sortBy ? `Sort: ${sortBy.charAt(0).toUpperCase() + sortBy.slice(1)}` : 'Sort Reviews'}
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => setSortBy('title')}>Title</Dropdown.Item>
+              <Dropdown.Item onClick={() => setSortBy('developer')}>Devloper</Dropdown.Item>
+              <Dropdown.Item onClick={() => setSortBy('genre')}>Genre</Dropdown.Item>
+              <Dropdown.Item onClick={() => setSortBy('play_time')}>Play Time</Dropdown.Item>
+              <Dropdown.Item onClick={() => setSortBy('release_year')}>Release Year</Dropdown.Item>
+              <Dropdown.Item onClick={() => setSortBy('ranking')}>Ranking</Dropdown.Item>
+              <Dropdown.Item onClick={() => setSortBy('')}>None</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Col>
       </Row>
       {showForm && (
         <Row className="justify-content-center">
@@ -129,7 +210,7 @@ function GameReviewList(props) {
         </Row>
       )}
       <Row className="mb-4 reviews d-flex flex-row">
-        {reviews.map((review) => (
+        {filteredReviews.map((review) => (
           <div key={review.id} className="me-3">
             <GameReview
               {...review}
