@@ -24,3 +24,6 @@ yarn-error.log*
 
 # don't want API key visible
 firebaseConfig.js 
+
+# don't want env visible
+.env
