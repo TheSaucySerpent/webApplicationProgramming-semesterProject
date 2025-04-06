@@ -62,7 +62,10 @@ h1 {
   width: 500px;
 }
 
-button {
+button, 
+.dropdown-toggle, 
+.dropdown-toggle:disabled, 
+.dropdown-toggle[aria-expanded="true"] {
   background-color: #00234B;
   color: white;
   border: none;
@@ -71,7 +74,12 @@ button {
   border-radius: 15px;
 }
 
-button:hover {
+.dropdown-item:hover {
+  background-color: #00234B;
+  color: white;
+}
+
+button:hover, .dropdown-toggle:hover, .dropdown-toggle:active:hover {
   background-color: #003F5C;
 }
 

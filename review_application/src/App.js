@@ -49,7 +49,7 @@ function App() {
           />
           <Route 
             path="/login" 
-            element={<Login />} 
+            element={<Login/>} 
           />
         </Routes>
       </div>
