@@ -2,11 +2,11 @@ import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 function Review(props) {
-  const getReviewStars = (rating) => {
-    const fullStars = Math.floor(rating);
-    const halfStars = rating % 1 !== 0;
-    return "⭐".repeat(fullStars) + (halfStars ? "½" : "");
-  };
+  // const getReviewStars = (rating) => {
+  //   const fullStars = Math.floor(rating);
+  //   const halfStars = rating % 1 !== 0;
+  //   return "⭐".repeat(fullStars) + (halfStars ? "½" : "");
+  // };
 
   return (
     <Container className='review'>
@@ -27,7 +27,7 @@ function Review(props) {
       <Row><Col><p>Genre: {props.genre}</p></Col></Row>
       <Row><Col><p>Play Time: {props.play_time} hours</p></Col></Row>
       <Row><Col><p>Release Year: {Math.abs(props.release_year)}</p></Col></Row>
-      <Row><Col><p>Ranking: {getReviewStars(props.ranking)} ({props.ranking}/10)</p></Col></Row>
+      <Row><Col><p>Ranking: {props.ranking}/10</p></Col></Row>
       <Row><Col><p>Review: {props.review}</p></Col></Row>
     </Container>
   );

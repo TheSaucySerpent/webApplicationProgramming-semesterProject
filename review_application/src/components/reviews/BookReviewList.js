@@ -3,7 +3,7 @@ import { collection, getDocs, setDoc, updateDoc, deleteDoc, doc, getDoc } from '
 import { firestore } from '../../firebaseConfig';
 import BookReview from './BookReview';
 import BookReviewForm from './BookReviewForm';
-import { Container, Row, Col, Image } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button } from 'react-bootstrap';
 
 function BookReviewList(props) {
   const [reviews, setReviews] = useState([]);
@@ -85,6 +85,14 @@ function BookReviewList(props) {
 
   return (
     <Container>
+      <Row className='text-end mb-3'>
+        {props.user && (
+              <div className="user-info">
+                <span className="mx-2" id="username">{props.user.displayName}</span>
+                <Button variant="outline-light" onClick={props.onLogout}>Log Out</Button>
+              </div>
+        )}
+      </Row>
       <Row 
         className='header-container justify-content-center align-items-center text-center flex-nowrap'
         id='book-header-container'>
