@@ -1,0 +1,138 @@
+import React, { useState, useEffect } from 'react';
+import { collection, getDocs, setDoc, updateDoc, deleteDoc, doc, getDoc } from 'firebase/firestore';
+import { firestore } from '../../firebaseConfig';
+import BookReview from './BookReview';
+import BookReviewForm from './BookReviewForm';
+import { Container, Row, Col, Image } from 'react-bootstrap';
+
+function BookReviewList(props) {
+  const [reviews, setReviews] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+  const [editingReview, setEditingReview] = useState(null);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      const reviewsCollection = collection(firestore, 'bookReviews');
+      const reviewsSnapshot = await getDocs(reviewsCollection);
+      const reviewList = reviewsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setReviews(reviewList);
+    };
+
+    fetchReviews();
+  }, []); // runs once on mount
+
+  function handleEdit(review) {
+    setEditingReview(review);
+    setShowForm(true);
+  }
+
+  async function handleDelete(id) {
+    try {
+      const reviewRef = doc(firestore, 'bookReviews', id);
+      const reviewSnap = await getDoc(reviewRef);
+      const reviewData = reviewSnap.data();
+
+      if (props.user.uid !== reviewData.uid) {
+        alert("You can only delete your own reviews.");
+        return;
+      }
+
+      await deleteDoc(reviewRef);
+      setReviews(reviews.filter((r) => r.id !== id));
+      console.log("Review deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting review", error);
+    }
+  }
+
+  async function handleSubmit(form) {
+    if (!props.user) {
+      alert("You must be logged in to submit a review.");
+      return;
+    }
+
+    const userData = {
+      displayName: props.user.displayName,
+      uid: props.user.uid,
+    };
+
+    if (editingReview) {
+      const reviewRef = doc(firestore, 'bookReviews', editingReview.id);
+      const reviewSnap = await getDoc(reviewRef);
+      const reviewData = reviewSnap.data();
+
+      if (props.user.uid !== reviewData.uid) {
+        alert("You can only edit your own reviews.");
+        return;
+      }
+
+      await updateDoc(reviewRef, { ...form, ...userData });
+      setReviews(reviews.map((r) => (r.id === editingReview.id ? { ...form, ...userData } : r)));
+      setEditingReview(null);
+    } else {
+      const newReviewRef = doc(firestore, 'bookReviews', form.isbn);
+      const docSnapshot = await getDoc(newReviewRef);
+
+      if (docSnapshot.exists()) {
+        alert("Cannot create a new book with duplicate ISBN");
+      } else {
+        await setDoc(newReviewRef, { ...form, ...userData });
+        setReviews([...reviews, { ...form, ...userData, id: newReviewRef.id }]);
+      }
+    }
+    setShowForm(false);
+  }
+
+  return (
+    <Container>
+      <Row 
+        className='header-container justify-content-center align-items-center text-center flex-nowrap'
+        id='book-header-container'>
+        <Col>
+          <Image src='images/walking_book.png' className='header-icon' alt="Walking Book" fluid />
+        </Col>
+        <Col>
+          <h1 className='title-container' id='book-title-container'>{props.title}</h1>
+        </Col>
+        <Col>
+          <Image src='images/walking_book.png' className='header-icon header-icon-right' alt="Walking Book" fluid />
+        </Col>
+      </Row>
+      <Row className='toolbar my-3 justify-content-center'>
+        <Col xs="auto">
+          <button
+            id="new-review-button"
+            onClick={() => {
+              if (showForm) {
+                setEditingReview(null);
+              }
+              setShowForm(!showForm);
+            }}
+          >
+            {showForm ? "Cancel" : "New Review"}
+          </button>
+        </Col>
+      </Row>
+      {showForm && (
+        <Row className="justify-content-center">
+          <Col md={8}>
+            <BookReviewForm onSubmit={handleSubmit} editingReview={editingReview} />
+          </Col>
+        </Row>
+      )}
+      <Row className="mb-4 reviews d-flex flex-row">
+        {reviews.map((review) => (
+          <div key={review.id} className="me-3">
+            <BookReview
+              {...review}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
+          </div>
+        ))}
+      </Row>
+    </Container>
+  );
+}
+
+export default BookReviewList;

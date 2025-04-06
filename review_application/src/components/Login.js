@@ -27,7 +27,7 @@ const Login = (props) => {
         // sign in the established user
         await signInWithEmailAndPassword(authentication, email, password);
       }
-      props.onLogin(); // call onLogin prop
+      // props.onLogin(); // call onLogin prop
       navigate('/book-reviews'); // navigate to /book-reviews after login
     } 
     catch (error) {
@@ -117,7 +117,7 @@ const Login = (props) => {
 
         <Col xs={12} md={6} className="mb-3 d-flex justify-content-center">
           <button variant="primary" className="d-flex justify-content-center align-items-center" onClick={() => {
-            props.onLogin();
+            // props.onLogin();
             setErrorMessage('');
             navigate('/book-reviews');
           }}>
