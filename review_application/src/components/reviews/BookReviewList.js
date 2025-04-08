@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs, addDoc, setDoc, updateDoc, deleteDoc, doc, getDoc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { firestore } from '../../firebaseConfig';
 import BookReview from './BookReview';
 import BookReviewForm from './BookReviewForm';
