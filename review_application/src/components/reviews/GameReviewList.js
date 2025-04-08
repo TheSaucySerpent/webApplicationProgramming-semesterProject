@@ -74,6 +74,7 @@ function GameReviewList(props) {
   async function handleSubmit(form) {
     if (!props.user) {
       setErrorMessage("You must be logged in to submit a review.");
+      setShowForm(false);
       return;
     }
 
@@ -89,6 +90,7 @@ function GameReviewList(props) {
 
       if (props.user.uid !== reviewData.uid) {
         setErrorMessage("You can only edit your own reviews.");
+        setShowForm(false);
         return;
       }
 
@@ -102,11 +104,12 @@ function GameReviewList(props) {
           ...form,
           ...userData
         });
-        setReviews([...reviews, { ...form, ...userData, id: newReviewRef.id }])
+        setReviews([...reviews, { ...form, ...userData, id: newReviewRef.id }]);
       }
       catch (error) {
         console.error("Error adding review", error);
-        setErrorMessage("Something went wrong while adding your review.")
+        setErrorMessage("Something went wrong while adding your review.");
+        setShowForm(false);
       }
       // const docSnapshot = await getDoc(newReviewRef);
 
@@ -138,15 +141,6 @@ function GameReviewList(props) {
 
   return (
     <Container>
-      <Row className='d-flex justify-content-center'>
-        {errorMessage && (
-            <Col xs="auto">
-              <Alert variant="danger" className="m-0">
-                {errorMessage}
-              </Alert>
-            </Col>
-          )}
-      </Row>
       <Row className='text-end mb-3'>
         {props.user && (
               <div className="user-info">
@@ -212,6 +206,15 @@ function GameReviewList(props) {
             </Dropdown.Menu>
           </Dropdown>
         </Col>
+      </Row>
+      <Row className='d-flex justify-content-center'>
+        {errorMessage && (
+            <Col xs="auto mb-3">
+              <Alert variant="danger" className="m-0">
+                {errorMessage}
+              </Alert>
+            </Col>
+          )}
       </Row>
       {showForm && (
         <Row className="justify-content-center">

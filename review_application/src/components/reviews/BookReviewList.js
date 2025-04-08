@@ -74,6 +74,7 @@ function BookReviewList(props) {
   async function handleSubmit(form) {
     if (!props.user) {
       setErrorMessage("You must be logged in to submit a review.");
+      setShowForm(false);
       return;
     }
 
@@ -89,6 +90,7 @@ function BookReviewList(props) {
 
       if (props.user.uid !== reviewData.uid) {
         setErrorMessage("You can only edit your own reviews.");
+        setShowForm(false);
         return;
       }
 
@@ -106,7 +108,8 @@ function BookReviewList(props) {
       }
       catch (error) {
         console.error("Error adding review", error);
-        setErrorMessage("Something went wrong while adding your review.")
+        setErrorMessage("Something went wrong while adding your review.");
+        setShowForm(false);
       }
       // const newReviewRef = doc(firestore, 'bookReviews', form.isbn);
       // const docSnapshot = await getDoc(newReviewRef);
@@ -139,15 +142,6 @@ function BookReviewList(props) {
 
   return (
     <Container>
-      <Row className='d-flex justify-content-center'>
-        {errorMessage && (
-            <Col xs="auto">
-              <Alert variant="danger" className="m-0">
-                {errorMessage}
-              </Alert>
-            </Col>
-          )}
-      </Row>
       <Row className='text-end mb-3'>
         {props.user && (
               <div className="user-info">
@@ -212,6 +206,15 @@ function BookReviewList(props) {
             </Dropdown.Menu>
           </Dropdown>
         </Col>
+      </Row>
+      <Row className='d-flex justify-content-center'>
+        {errorMessage && (
+            <Col xs="auto mb-3">
+              <Alert variant="danger" className="m-0">
+                {errorMessage}
+              </Alert>
+            </Col>
+          )}
       </Row>
       {showForm && (
         <Row className="justify-content-center">
