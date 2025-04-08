@@ -19,7 +19,7 @@ function Review(props) {
         </Col>
         <Col xs="auto">
           <Button variant="secondary" size="sm" className="me-2" onClick={() => props.onEdit(props)}>Edit</Button>
-          <Button variant="danger" size="sm" onClick={() => props.onDelete(props.title)}>Delete</Button>
+          <Button variant="danger" size="sm" onClick={() => props.onDelete(props.id)}>Delete</Button>
         </Col>
       </Row>
 

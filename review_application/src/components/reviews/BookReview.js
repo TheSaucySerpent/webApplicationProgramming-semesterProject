@@ -21,7 +21,7 @@ function BookReview(props) {
           <Button variant="secondary" onClick={() => props.onEdit(props)}>Edit</Button>
         </Col>
         <Col xs="auto">
-          <Button variant="danger" onClick={() => props.onDelete(props.isbn)}>Delete</Button>
+          <Button variant="danger" onClick={() => props.onDelete(props.id)}>Delete</Button>
         </Col>
       </Row>
       <Row>
