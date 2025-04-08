@@ -75,6 +75,7 @@ function GameReviewList(props) {
     if (!props.user) {
       setErrorMessage("You must be logged in to submit a review.");
       setShowForm(false);
+      setEditingReview(null);
       return;
     }
 
@@ -91,11 +92,13 @@ function GameReviewList(props) {
       if (props.user.uid !== reviewData.uid) {
         setErrorMessage("You can only edit your own reviews.");
         setShowForm(false);
+        setEditingReview(null);
         return;
       }
 
       await updateDoc(reviewRef, { ...form, ...userData });
       setReviews(reviews.map((r) => (r.id === editingReview.id ? { ...form, ...userData } : r)));
+      setShowForm(false);
       setEditingReview(null);
     } 
     else {
@@ -110,6 +113,7 @@ function GameReviewList(props) {
         console.error("Error adding review", error);
         setErrorMessage("Something went wrong while adding your review.");
         setShowForm(false);
+        setEditingReview(null);
       }
       // const docSnapshot = await getDoc(newReviewRef);
 
@@ -120,7 +124,7 @@ function GameReviewList(props) {
       //   setReviews([...reviews, { ...form, ...userData, id: newReviewRef.id }]);
       // }
     }
-    setShowForm(false);
+    // setShowForm(false);
   }
 
   const filteredReviews = reviews

@@ -75,6 +75,7 @@ function BookReviewList(props) {
     if (!props.user) {
       setErrorMessage("You must be logged in to submit a review.");
       setShowForm(false);
+      setEditingReview(null);
       return;
     }
 
@@ -91,11 +92,13 @@ function BookReviewList(props) {
       if (props.user.uid !== reviewData.uid) {
         setErrorMessage("You can only edit your own reviews.");
         setShowForm(false);
+        setEditingReview(null);
         return;
       }
 
       await updateDoc(reviewRef, { ...form, ...userData });
       setReviews(reviews.map((r) => (r.id === editingReview.id ? { ...form, ...userData } : r)));
+      setShowForm(false);
       setEditingReview(null);
     } 
     else {
@@ -110,6 +113,7 @@ function BookReviewList(props) {
         console.error("Error adding review", error);
         setErrorMessage("Something went wrong while adding your review.");
         setShowForm(false);
+        setEditingReview(null);
       }
       // const newReviewRef = doc(firestore, 'bookReviews', form.isbn);
       // const docSnapshot = await getDoc(newReviewRef);
@@ -121,7 +125,7 @@ function BookReviewList(props) {
       //   setReviews([...reviews, { ...form, ...userData, id: newReviewRef.id }]);
       // }
     }
-    setShowForm(false);
+    // setShowForm(false);
   }
 
   const filteredReviews = reviews
