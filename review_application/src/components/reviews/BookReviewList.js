@@ -6,7 +6,7 @@ import BookReviewForm from './BookReviewForm';
 export default function BookReviewList(props) {
   return (
     <ReviewList
-      title="Book Reviews"
+      title={props.title}
       user={props.user}
       onLogout={props.onLogout}
       collectionName="bookReviews"

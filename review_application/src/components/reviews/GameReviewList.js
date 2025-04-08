@@ -6,7 +6,7 @@ import GameReviewForm from './GameReviewForm';
 export default function GameReviewList(props) {
   return (
     <ReviewList
-      title="Game Reviews"
+      title={props.title}
       user={props.user}
       onLogout={props.onLogout}
       collectionName="gameReviews"
