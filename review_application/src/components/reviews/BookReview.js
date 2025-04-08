@@ -14,7 +14,7 @@ function BookReview(props) {
       onDelete={props.onDelete}
       id={props.id}
       additionalInfo={[
-        { label: "ISBN", value: props.isbn }
+        { label: "ISBN", value: props.isbn, fieldName: "isbn" }
       ]}
     />
   );

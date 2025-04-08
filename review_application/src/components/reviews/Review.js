@@ -29,7 +29,23 @@ function Review({
           <p className="mb-1">Reviewed by: {displayName}</p>
         </Col>
         <Col xs="auto">
-          <Button variant="secondary" size="sm" className="me-2" onClick={() => onEdit({ title, displayName, ranking, release_year, review, id, author })}>Edit</Button>
+          <Button variant="secondary" size="sm" className="me-2" onClick={() => {
+              const additionalData = {};
+              additionalInfo.forEach(item => {
+                additionalData[item.fieldName] = item.value; // Use fieldName as key
+              });
+              onEdit({ 
+                title, 
+                displayName, 
+                ranking, 
+                release_year, 
+                review, 
+                id, 
+                author, 
+                ...additionalData // spread additional data
+              });
+            }}
+              >Edit</Button>
           <Button variant="danger" size="sm" onClick={() => onDelete(id)}>Delete</Button>
         </Col>
       </Row>

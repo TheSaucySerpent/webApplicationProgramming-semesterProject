@@ -13,9 +13,9 @@ function GameReview(props) {
       onDelete={props.onDelete}
       id={props.id}
       additionalInfo={[
-        { label: "Developer", value: props.developer },
-        { label: "Genre", value: props.genre },
-        { label: "Play Time", value: `${props.play_time} hours` }
+        { label: "Developer", value: props.developer, fieldName: "developer" },
+        { label: "Genre", value: props.genre, fieldName: "genre" },
+        { label: "Play Time", value: props.play_time, fieldName: "play_time" }
       ]}
     />
   );
