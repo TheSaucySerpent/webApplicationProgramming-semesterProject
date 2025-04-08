@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs, setDoc, updateDoc, deleteDoc, doc, getDoc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, setDoc, updateDoc, deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { firestore } from '../../firebaseConfig';
 import BookReview from './BookReview';
 import BookReviewForm from './BookReviewForm';
@@ -95,16 +95,28 @@ function BookReviewList(props) {
       await updateDoc(reviewRef, { ...form, ...userData });
       setReviews(reviews.map((r) => (r.id === editingReview.id ? { ...form, ...userData } : r)));
       setEditingReview(null);
-    } else {
-      const newReviewRef = doc(firestore, 'bookReviews', form.isbn);
-      const docSnapshot = await getDoc(newReviewRef);
-
-      if (docSnapshot.exists()) {
-        setErrorMessage("Cannot create a new book with duplicate ISBN");
-      } else {
-        await setDoc(newReviewRef, { ...form, ...userData });
-        setReviews([...reviews, { ...form, ...userData, id: newReviewRef.id }]);
+    } 
+    else {
+      try {
+        const newReviewRef = await addDoc(collection(firestore, 'bookReviews'), {
+          ...form,
+          ...userData
+        });
+        setReviews([...reviews, { ...form, ...userData, id: newReviewRef.id }])
       }
+      catch (error) {
+        console.error("Error adding review", error);
+        setErrorMessage("Something went wrong while adding your review.")
+      }
+      // const newReviewRef = doc(firestore, 'bookReviews', form.isbn);
+      // const docSnapshot = await getDoc(newReviewRef);
+
+      // if (docSnapshot.exists()) {
+      //   setErrorMessage("Cannot create a new book with duplicate ISBN");
+      // } else {
+      //   await setDoc(newReviewRef, { ...form, ...userData });
+      //   setReviews([...reviews, { ...form, ...userData, id: newReviewRef.id }]);
+      // }
     }
     setShowForm(false);
   }
