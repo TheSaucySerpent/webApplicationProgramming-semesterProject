@@ -1,5 +1,5 @@
 import React from 'react';
-import Review from './Review';
+import Review from '../Review';
 
 function BookReview(props) {
   return (

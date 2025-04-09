@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, getDoc } from 'firebase/firestore';
-import { firestore } from '../../firebaseConfig';
+import { firestore } from '../firebaseConfig';
 import { Container, Row, Col, Image, Button, Dropdown, ButtonGroup, Alert } from 'react-bootstrap';
 
 function ReviewList({

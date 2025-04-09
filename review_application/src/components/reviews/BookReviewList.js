@@ -1,5 +1,5 @@
 import React from 'react';
-import ReviewList from './ReviewList';
+import ReviewList from '../ReviewList';
 import BookReview from './BookReview';
 import BookReviewForm from './BookReviewForm';
 
