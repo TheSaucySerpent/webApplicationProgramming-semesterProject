@@ -55,6 +55,7 @@ const gameFields = [
     label: "Review",
     as: "textarea",
     rows: 10,
+    fullRow: true,
     required: true,
     validate: val => val.length <= 5000,
     errorMessage: "Review must be under 5000 characters"
