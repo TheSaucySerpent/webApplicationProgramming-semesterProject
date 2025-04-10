@@ -13,7 +13,7 @@ function Home() {
     <Container fluid className='d-flex flex-column justify-content-center align-items-center'>
       <Row className='mb-4'>
       <Carousel className="custom-carousel">
-        {Array.from({ length: 9 }, (_, index) => (
+        {Array.from({ length: 15 }, (_, index) => (
           <Carousel.Item key={index} interval={5000}>
             <img
               src={`/images/carousel/carousel${index + 1}.jpg`}
