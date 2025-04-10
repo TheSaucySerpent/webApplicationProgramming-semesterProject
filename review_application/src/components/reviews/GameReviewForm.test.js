@@ -59,7 +59,7 @@ describe('GameReviewForm Validation', () => {
     render(<GameReviewForm onSubmit={mockSubmit} />);
 
     fireEvent.change(screen.getByLabelText(/title/i), { target: { value: 'The Last of Us' } });
-    fireEvent.change(screen.getByLabelText(/developer/i), { target: { value: '_Naughty Dog' } });
+    fireEvent.change(screen.getByLabelText(/developer/i), { target: { value: '-Naughty Dog' } });
     fireEvent.change(screen.getByLabelText(/genre/i), { target: { value: 'Action' } });
     fireEvent.change(screen.getByLabelText(/play time/i), { target: { value: '32' } });
     fireEvent.change(screen.getByLabelText(/release year/i), { target: { value: '2013' } });

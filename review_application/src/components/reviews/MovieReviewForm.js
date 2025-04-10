@@ -1,6 +1,6 @@
 import ReviewForm from '../ReviewForm';
 
-const gameFields = [
+const movieFields = [
   {
     name: "title",
     label: "Title",
@@ -9,11 +9,11 @@ const gameFields = [
     errorMessage: "Title must be less than 150 characters"
   },
   {
-    name: "developer",
-    label: "Developer",
+    name: "director",
+    label: "Director",
     required: true,
-    validate: val => /^[a-zA-Z0-9][a-zA-Z0-9 .,-]*$/.test(val) && val.length <= 150,
-    errorMessage: "Developer must be less than 150 characters and can start with a letter or number"
+    validate: val => /^[a-zA-Z][a-zA-Z0-9 .,-]*$/.test(val) && val.length <= 150,
+    errorMessage: "Director must be less than 150 characters and must start with a letter"
   },
   {
     name: "genre",
@@ -21,14 +21,6 @@ const gameFields = [
     required: true,
     validate: val => /^[a-zA-Z0-9][a-zA-Z0-9 .,-]*$/.test(val) && val.length <= 150,
     errorMessage: "Genre must be less than 150 characters and can start with a letter or number"
-  },
-  {
-    name: "play_time",
-    label: "Play Time (hrs)",
-    type: "number",
-    required: true,
-    validate: val => Number(val) >= 0,
-    errorMessage: "Play time must be a non-negative number"
   },
   {
     name: "release_year",
@@ -47,12 +39,12 @@ const gameFields = [
     type: "number",
     required: true,
     min: 0,
-    max: 10,
+    max: 5,
     step: 0.5,
     validate: val => {
       const numVal = Number(val);
-      // check if the value is between 0 and 10 and is a valid half-step (half-step * 2 is a whole number)
-      return numVal >= 0 && numVal <= 10 && (numVal * 2) % 1 === 0;
+      // check if the value is between 0 and 5 and is a valid half-step (half-step * 2 is a whole number)
+      return numVal >= 0 && numVal <= 5 && (numVal * 2) % 1 === 0;
     },
     errorMessage: "Ranking must be between 0 and 10 and in increments of 0.5",
   },
@@ -68,14 +60,14 @@ const gameFields = [
   }
 ];
 
-function GameReviewForm({ onSubmit, editingReview }) {
+function MovieReviewForm({ onSubmit, editingReview }) {
   return (
     <ReviewForm
-      fields={gameFields}
+      fields={movieFields}
       onSubmit={onSubmit}
       editingReview={editingReview}
     />
   );
 }
 
-export default GameReviewForm;
+export default MovieReviewForm;

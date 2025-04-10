@@ -35,6 +35,13 @@ h1 {
   background-image: url(/public/images/arcade.gif);
 }
 
+#movie-header-container {
+  background-image: url(/public/images/500daysofsummer.gif);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 .toolbar {
   display: flex;
   justify-content: center;
@@ -58,6 +65,10 @@ h1 {
 
 #game-title-container {
   background-color: #cd1b9c;
+}
+
+#movie-title-container {
+  background-color: #00234B;
 }
 
 button, 
@@ -155,9 +166,9 @@ label {
   height: auto;
 }
 
-#arcade-cabinet-icon {
+/* #arcade-cabinet-icon {
   transform: scaleX(-1);
-}
+} */
 
 .home-screen-text-container {
   display: flex;

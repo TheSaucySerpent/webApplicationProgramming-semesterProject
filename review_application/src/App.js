@@ -8,6 +8,7 @@ import Home from './components/Home';
 import Login from './components/Login';
 import BookReviewList from './components/reviews/BookReviewList';
 import GameReviewList from './components/reviews/GameReviewList';
+import MovieReviewList from './components/reviews/MovieReviewList';
 
 function App() {
   // const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -40,6 +41,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route 
+            path="/login" 
+            element={<Login/>} 
+          />
+          <Route 
             path="/book-reviews" 
             element={<BookReviewList title="The Bookery" user={user} onLogout={handleLogout}/>}
           />
@@ -48,8 +53,8 @@ function App() {
             element={<GameReviewList title="The Game Den" user={user} onLogout={handleLogout}/>}
           />
           <Route 
-            path="/login" 
-            element={<Login/>} 
+            path="/movie-reviews" 
+            element={<MovieReviewList title="The Theater" user={user} onLogout={handleLogout}/>}
           />
         </Routes>
       </div>

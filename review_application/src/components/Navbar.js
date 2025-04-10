@@ -26,6 +26,9 @@ function Navbar() {
       <Nav.Item>
         <Nav.Link as={Link} to="/game-reviews" eventKey="/game-reviews">Game Reviews</Nav.Link>
       </Nav.Item>
+      <Nav.Item>
+        <Nav.Link as={Link} to="/movie-reviews" eventKey="/movie-reviews">Movie Reviews</Nav.Link>
+      </Nav.Item>
       </Nav>
     </Container>
   );

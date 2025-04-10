@@ -27,6 +27,7 @@ function Home() {
         <Col className='d-flex justify-content-center'>
           <img src='/images/walking_book.png' className='home-screen-icon' id='book-icon' alt='Walking Book' />
           <img src='/images/arcade_cabinet.png' className='home-screen-icon' id='arcade-cabinet-icon' alt='Arcade Cabinet'/>
+          <img src='/images/walking_tv.png' className='home-screen-icon' id='movie-icon' alt='Walking Tv' />
         </Col>
       </Row>
       <Row>
