@@ -130,7 +130,7 @@ function ReviewList({
     });
 
   return (
-    <Container>
+    <Container fluid>
       <Row className='text-end mb-3'>
         {user && (
           <div className="user-info">
@@ -198,7 +198,7 @@ function ReviewList({
       )}
       {showForm && (
         <Row className="justify-content-center">
-          <Col md={8}>
+          <Col xs={12} md={8}>
             <ReviewFormComponent onSubmit={handleSubmit} editingReview={editingReview} />
           </Col>
         </Row>

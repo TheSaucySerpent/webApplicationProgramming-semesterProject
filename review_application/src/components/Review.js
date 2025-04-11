@@ -22,13 +22,13 @@ function Review({
   return (
     <Container className='review'>
       <Row className="mb-2">
-        <Col>
+        <Col xs={12} sm={12} md={5}>
           <h2>{title}{author ? ` - ${author}` : ''}</h2>
         </Col>
-        <Col xs="auto">
+        <Col xs={12} sm={6} md={3}>
           <p className="mb-1">Reviewed by: {displayName}</p>
         </Col>
-        <Col xs="auto">
+        <Col xs={12} sm={6} md={4}>
           <Button variant="secondary" size="sm" className="me-2" onClick={() => {
               const additionalData = {};
               additionalInfo.forEach(item => {
