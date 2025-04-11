@@ -40,13 +40,15 @@ h2 {
 
 #game-header-container {
   background-image: url(/public/images/arcade.gif);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #movie-header-container {
   background-image: url(/public/images/500daysofsummer.gif);
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: 50% 45%;
 }
 
 .toolbar {
