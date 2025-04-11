@@ -3,15 +3,21 @@ body {
 }
 
 h1 {
-  font-size: 48pt;
+  font-size: clamp(2rem, 5vw + 1rem, 3rem);
   color: #D5C7AC;
   font-family: 'Playfair Display SC', serif;
+}
+
+h2 {
+  font-weight: normal;
+  font-size: clamp(1rem, 3vw + 0.5rem, 1.5rem);
 }
 
 .header-icon {
   width: 100%;
   max-width: 350px;
   height: auto;
+  max-width: 250px;
 }
 
 .header-icon-right {
@@ -25,6 +31,7 @@ h1 {
   justify-content: center;
   gap: 150px;
   height: 340px;
+  width: 100vw;
 }
 
 #book-header-container {
@@ -56,7 +63,8 @@ h1 {
   justify-content: center;
   align-items: center;
   max-height: 400px; 
-  width: 400px;
+  max-width: 400px;
+  width: 100%;
 }
 
 #book-title-container {
@@ -153,18 +161,22 @@ label {
 }
 
 .home {
-  display: flex; /* Enable flexbox */
-  flex-direction: column; /* Stack items vertically */
-  align-items: center; /* Center child elements horizontally */
-  justify-content: center; /* Center child elements vertically */
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 .home-screen-icon {
   width: 150px;
   height: auto;
 }
+
+/* #movie-icon {
+  height: 80%;
+} */
 
 /* #arcade-cabinet-icon {
   transform: scaleX(-1);
@@ -180,24 +192,22 @@ label {
   width: 75%;
 }
 
-h2 {
-  font-weight: normal;
-}
-
 .login-button {
   margin: 15px;
 }
 
 /* Carousel CSS */
 .custom-carousel {
-  width: 750px;
-  height: 345px;
-  overflow: hidden;
+  width: 100%;
+  max-width: 750px;
+  height: auto;
 }
 
 .custom-carousel img {
   width: 100%;
-  height: 100%;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 16/9;
 }
 
 /* Custom Navbar */

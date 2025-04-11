@@ -23,10 +23,14 @@ function Home() {
         ))}
       </Carousel>
       </Row>
-      <Row>
-        <Col className='d-flex justify-content-center'>
+      <Row className="d-flex justify-content-center">
+        <Col xs={6} md={4}>
           <img src='/images/walking_book.png' className='home-screen-icon' id='book-icon' alt='Walking Book' />
+        </Col>
+        <Col xs={6} md={4}>
           <img src='/images/arcade_cabinet.png' className='home-screen-icon' id='arcade-cabinet-icon' alt='Arcade Cabinet'/>
+        </Col>
+        <Col xs={6} md={4}>
           <img src='/images/walking_tv.png' className='home-screen-icon' id='movie-icon' alt='Walking Tv' />
         </Col>
       </Row>
