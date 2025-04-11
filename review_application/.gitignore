@@ -23,7 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # don't want API key visible
-firebaseConfig.js 
+# firebaseConfig.js # switched to using environment variables for deployment
 
 # don't want env visible
 .env
