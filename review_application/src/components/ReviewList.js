@@ -130,7 +130,7 @@ function ReviewList({
     });
 
   return (
-    <Container fluid>
+    <Container fluid className='d-flex flex-column justify-content-center align-items-center'>
       <Row className='text-end mb-3'>
         {user && (
           <div className="user-info">
@@ -140,12 +140,12 @@ function ReviewList({
         )}
       </Row>
       <Row 
-        className='header-container justify-content-center align-items-center text-center flex-nowrap'
+        className='header-container justify-content-center align-items-center text-center'
         id={`${reviewType}-header-container`}>
         <Col>
           <Image src={headerIcon} className='header-icon' alt="Header" fluid />
         </Col>
-        <Col>
+        <Col className='d-flex justify-content-center align-items-center'>
           <h1 className='title-container' id={`${reviewType}-title-container`}>{title}</h1>
         </Col>
         <Col>
@@ -203,11 +203,11 @@ function ReviewList({
           </Col>
         </Row>
       )}
-      <Row className="mb-4 reviews d-flex flex-row">
+      <Row className="mb-4 reviews">
         {filteredReviews.map((review) => (
-          <div key={review.id} className="me-3">
+          <Col key={review.id} xs={12} className="mb-4">
             <ReviewComponent {...review} onEdit={handleEdit} onDelete={handleDelete} />
-          </div>
+          </Col>
         ))}
       </Row>
     </Container>
