@@ -30,7 +30,7 @@ function Home() {
         <Col xs={6} md={4}>
           <img src='/images/arcade_cabinet.png' className='home-screen-icon' id='arcade-cabinet-icon' alt='Arcade Cabinet'/>
         </Col>
-        <Col xs={4} md={4}>
+        <Col xs={6} md={4}>
           <img src='/images/walking_tv.png' className='home-screen-icon' id='movie-icon' alt='Walking Tv' />
         </Col>
       </Row>
