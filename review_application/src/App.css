@@ -180,14 +180,6 @@ label {
   height: auto;
 }
 
-/* #movie-icon {
-  height: 80%;
-} */
-
-/* #arcade-cabinet-icon {
-  transform: scaleX(-1);
-} */
-
 .home-screen-text-container {
   display: flex;
   flex-direction: column;
